@@ -1,3 +1,0 @@
-We can set at whta time the code should be pulled
-we can set email notiifcation for Every new bulid and faiure cases (bugs in code)
-Hi
