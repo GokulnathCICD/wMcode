@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <webMethodsTestSuite description="" name="Fibonachi Test">
-    <webMethodsTestCase enabled="false" name="Straigt Case">
+    <webMethodsTestCase name="Straigt Case">
         <mock enabled="false" folder="pub.math" name="subtractInts">
             <pipeline filename="resources/test/xml/data/mockSubstractIntWrong.xml"/>
         </mock>
