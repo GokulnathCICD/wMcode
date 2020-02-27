@@ -8,7 +8,7 @@
         <!-- remap the VCS structure defined in project.properties to have absolute paths -->
         <property name="isProjectsDir" location="${isPackages}"/>
         <property name="isTestDir" location="${isTests}"/>
-	<property name="TNassets" location="${TNassets}"/>
+	<property name="tNassets" location="${tNassets}"/>
         <property name="isConfigDir" location="${isConfigDir}"/>
         <property name="bpmProjectsDir" location="${bpmProjects}"/>
         <property name="mwsProjectsDir" location="${mwsProjects}"/>
