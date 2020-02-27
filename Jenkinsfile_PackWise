@@ -8,7 +8,7 @@ pipeline {
 			
 			echo "Checking out PackageName ${env.ISPackagePath}${PackageName} and WmTest Package ${env.WmTestSuitePackagePath}${PackageName}Test"
 			
-			 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [[path: "${env.ISPackagePath}${PackageName}"], [path: "${env.WmTestSuitePackagePath}${PackageName}Test"], [path: 'Jenkinsfile_PackWise']]]], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'gitMondiID', url: 'https://github.com/GokulnathCICD/wMcode']]])
+			 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [[path: "${env.ISPackagePath}${PackageName}"], [path: "${env.WmTestSuitePackagePath}${PackageName}Test"], [path: 'Jenkinsfile_PackWise'], [path: 'build.xml'], [path: 'project.properties']]]], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'gitMondiID', url: 'https://github.com/GokulnathCICD/wMcode']]])
 			}
 		}
         stage('Build'){
