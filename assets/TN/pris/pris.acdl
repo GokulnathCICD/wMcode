@@ -1,0 +1,11 @@
+<asset_composite xmlns="http://namespaces.softwareag.com/acdl/1.0" name="pris" displayName="pris" targetNamespace="http://namespaces.softwareag.com/webMethods/TN" runtimeVersion="10.1.0.0">
+  <buildInfo name="BuildTimestamp" value="2020-03-03T10:13:47" />
+  <buildInfo name="MinimumTargetRuntimeVersion" value="10.1.0.0" />
+  <asset name="documentattribute.0ah3en01cggidris00000699.ZU1haWxUb0xpc3Q=" displayName="eMailToList">
+    <implementation.generic type="documentattribute" />
+    <property name="Document Attribute Status" displayName="Document Attribute Status">
+      <value>enabled</value>
+    </property>
+  </asset>
+</asset_composite>
+
