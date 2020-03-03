@@ -9,7 +9,7 @@
         <property name="isProjectsDir" location="${isPackages}"/>
 	<property name="tNassetsDir" location="${tNassets}"/>
         <property name="isTestDir" location="${isTests}"/>
-        <property name="isConfigDir" location="${isConfigDir}"/>
+        <property name="isConfigDir" location="${isConfig}"/>
         <property name="bpmProjectsDir" location="${bpmProjects}"/>
         <property name="mwsProjectsDir" location="${mwsProjects}"/>
         <property name="rulesProjectsDir" location="${rulesProjects}"/>
