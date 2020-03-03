@@ -1,3 +1,0 @@
-startMillis=1582695406403
-stopMillis=1582695473018
-totalProductsSize=9174895
