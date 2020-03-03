@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Values version="2.0">
+  <value name="is.version">10.5.0.0</value>
+  <number name="level" type="Integer">0</number>
+  <value name="allowAll">false</value>
+  <record name="codes" javaclass="com.wm.util.Values">
+    <record name="ISP" javaclass="com.wm.util.Values">
+      <record name="46" javaclass="com.wm.util.Values">
+        <value name="1">1</value>
+        <value name="7">7</value>
+        <value name="8">8</value>
+      </record>
+      <record name="47" javaclass="com.wm.util.Values">
+        <value name="1">1</value>
+        <value name="8">8</value>
+        <value name="9">9</value>
+      </record>
+    </record>
+    <record name="ISS" javaclass="com.wm.util.Values">
+      <record name="24" javaclass="com.wm.util.Values">
+        <value name="1">1</value>
+        <value name="2">2</value>
+        <value name="3">3</value>
+        <value name="5">5</value>
+        <value name="6">6</value>
+      </record>
+      <record name="25" javaclass="com.wm.util.Values">
+        <value name="1">1</value>
+      </record>
+      <record name="48" javaclass="com.wm.util.Values">
+        <value name="1">1</value>
+      </record>
+      <record name="28" javaclass="com.wm.util.Values">
+        <value name="3">3</value>
+        <value name="5">5</value>
+        <value name="6">6</value>
+        <value name="7">7</value>
+        <value name="8">8</value>
+        <value name="9">9</value>
+        <value name="10">10</value>
+        <value name="11">11</value>
+        <value name="13">13</value>
+        <value name="14">14</value>
+        <value name="15">15</value>
+        <value name="16">16</value>
+        <value name="17">17</value>
+        <value name="18">18</value>
+        <value name="19">19</value>
+        <value name="20">20</value>
+        <value name="21">21</value>
+        <value name="32">32</value>
+        <value name="33">33</value>
+        <value name="34">34</value>
+        <value name="35">35</value>
+        <value name="36">36</value>
+        <value name="37">37</value>
+        <value name="53">53</value>
+        <value name="54">54</value>
+      </record>
+      <record name="70" javaclass="com.wm.util.Values">
+        <value name="17">17</value>
+        <value name="18">18</value>
+        <value name="23">23</value>
+        <value name="24">24</value>
+        <value name="25">25</value>
+        <value name="26">26</value>
+        <value name="27">27</value>
+        <value name="28">28</value>
+      </record>
+      <record name="51" javaclass="com.wm.util.Values">
+        <value name="2">2</value>
+        <value name="5">5</value>
+        <value name="8">8</value>
+      </record>
+      <record name="53" javaclass="com.wm.util.Values">
+        <value name="2">2</value>
+      </record>
+      <record name="97" javaclass="com.wm.util.Values">
+        <value name="1">1</value>
+        <value name="2">2</value>
+        <value name="3">3</value>
+      </record>
+      <record name="54" javaclass="com.wm.util.Values">
+        <value name="1">1</value>
+      </record>
+      <record name="76" javaclass="com.wm.util.Values">
+        <value name="26">26</value>
+        <value name="27">27</value>
+        <value name="28">28</value>
+        <value name="29">29</value>
+        <value name="30">30</value>
+        <value name="31">31</value>
+        <value name="32">32</value>
+      </record>
+      <record name="98" javaclass="com.wm.util.Values">
+        <value name="3">3</value>
+        <value name="4">4</value>
+        <value name="5">5</value>
+        <value name="7">7</value>
+        <value name="8">8</value>
+        <value name="12">12</value>
+        <value name="13">13</value>
+        <value name="18">18</value>
+        <value name="23">23</value>
+        <value name="24">24</value>
+        <value name="25">25</value>
+        <value name="29">29</value>
+        <value name="30">30</value>
+        <value name="31">31</value>
+        <value name="32">32</value>
+        <value name="33">33</value>
+        <value name="35">35</value>
+        <value name="36">36</value>
+        <value name="38">38</value>
+        <value name="39">39</value>
+        <value name="41">41</value>
+        <value name="42">42</value>
+        <value name="43">43</value>
+        <value name="44">44</value>
+        <value name="45">45</value>
+        <value name="46">46</value>
+        <value name="47">47</value>
+        <value name="48">48</value>
+      </record>
+      <record name="33" javaclass="com.wm.util.Values">
+        <value name="109">109</value>
+        <value name="110">110</value>
+        <value name="151">151</value>
+        <value name="152">152</value>
+        <value name="154">154</value>
+        <value name="155">155</value>
+        <value name="158">158</value>
+        <value name="161">161</value>
+        <value name="165">165</value>
+        <value name="166">166</value>
+      </record>
+      <record name="55" javaclass="com.wm.util.Values">
+        <value name="1">1</value>
+      </record>
+      <record name="99" javaclass="com.wm.util.Values">
+        <value name="1">1</value>
+        <value name="2">2</value>
+        <value name="3">3</value>
+      </record>
+      <record name="12" javaclass="com.wm.util.Values">
+        <value name="2">2</value>
+      </record>
+      <record name="56" javaclass="com.wm.util.Values">
+        <value name="1">1</value>
+        <value name="2">2</value>
+        <value name="3">3</value>
+      </record>
+      <record name="13" javaclass="com.wm.util.Values">
+        <value name="1">1</value>
+      </record>
+      <record name="79" javaclass="com.wm.util.Values">
+        <value name="101">101</value>
+        <value name="102">102</value>
+        <value name="104">104</value>
+      </record>
+      <record name="14" javaclass="com.wm.util.Values">
+        <value name="2">2</value>
+        <value name="4">4</value>
+        <value name="5">5</value>
+        <value name="6">6</value>
+        <value name="7">7</value>
+        <value name="8">8</value>
+        <value name="9">9</value>
+        <value name="20">20</value>
+        <value name="23">23</value>
+      </record>
+      <record name="59" javaclass="com.wm.util.Values">
+        <value name="1">1</value>
+      </record>
+      <record name="15" javaclass="com.wm.util.Values">
+        <value name="4">4</value>
+      </record>
+      <record name="1" javaclass="com.wm.util.Values">
+        <value name="2">2</value>
+        <value name="3">3</value>
+        <value name="11">11</value>
+        <value name="16">16</value>
+        <value name="19">19</value>
+      </record>
+      <record name="100" javaclass="com.wm.util.Values">
+        <value name="2">2</value>
+        <value name="3">3</value>
+        <value name="4">4</value>
+        <value name="5">5</value>
+      </record>
+      <record name="2" javaclass="com.wm.util.Values">
+        <value name="1">1</value>
+        <value name="9">9</value>
+        <value name="10">10</value>
+        <value name="11">11</value>
+        <value name="14">14</value>
+        <value name="15">15</value>
+      </record>
+      <record name="3" javaclass="com.wm.util.Values">
+        <value name="3">3</value>
+      </record>
+      <record name="4" javaclass="com.wm.util.Values">
+        <value name="2">2</value>
+        <value name="4">4</value>
+      </record>
+      <record name="80" javaclass="com.wm.util.Values">
+        <value name="100">100</value>
+        <value name="102">102</value>
+        <value name="103">103</value>
+        <value name="106">106</value>
+        <value name="107">107</value>
+        <value name="108">108</value>
+        <value name="109">109</value>
+      </record>
+    </record>
+    <record name="ISC" javaclass="com.wm.util.Values">
+      <record name="67" javaclass="com.wm.util.Values">
+        <value name="2">2</value>
+        <value name="3">3</value>
+        <value name="13">13</value>
+        <value name="14">14</value>
+        <value name="99">99</value>
+        <value name="101">101</value>
+        <value name="104">104</value>
+        <value name="108">108</value>
+      </record>
+      <record name="18" javaclass="com.wm.util.Values">
+        <value name="1">1</value>
+      </record>
+      <record name="62" javaclass="com.wm.util.Values">
+        <value name="22">22</value>
+        <value name="25">25</value>
+        <value name="32">32</value>
+      </record>
+      <record name="63" javaclass="com.wm.util.Values">
+        <value name="14">14</value>
+        <value name="27">27</value>
+        <value name="48">48</value>
+        <value name="72">72</value>
+        <value name="75">75</value>
+      </record>
+      <record name="64" javaclass="com.wm.util.Values">
+        <value name="1">1</value>
+        <value name="12">12</value>
+        <value name="18">18</value>
+      </record>
+    </record>
+  </record>
+</Values>
