@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://deployment.cloudstreams.softwareag.com"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                  xmlns="http://deployment.cloudstreams.softwareag.com">
+
+    <wsdl:types>
+        <xs:schema targetNamespace="http://deployment.cloudstreams.softwareag.com">
+            <xs:include schemaLocation="deploy.xsd"/>
+        </xs:schema>
+    </wsdl:types>
+
+    <!--Fault messages -->
+    <wsdl:message name="InvalidRequestFault">
+        <wsdl:part name="part" element="invalidRequestError"/>
+    </wsdl:message>
+    <wsdl:message name="ServerRuntimeFault">
+        <wsdl:part name="part" element="serverRuntimeError"/>
+    </wsdl:message>
+    <wsdl:message name="DeployServiceFault">
+        <wsdl:part name="part" element="deployServiceError"/>
+    </wsdl:message>
+    <wsdl:message name="UndeployServiceFault">
+        <wsdl:part name="part" element="undeployServiceError"/>
+    </wsdl:message>
+    <wsdl:message name="PackageDeleteFault">
+        <wsdl:part name="part" element="packageDeleteError"/>
+    </wsdl:message>
+    <wsdl:message name="PackageCreationFault">
+        <wsdl:part name="part" element="packageCreationError"/>
+    </wsdl:message>
+    <wsdl:message name="PackageAlreadyExistsFault">
+        <wsdl:part name="part" element="packageAlreadyExistsError"/>
+    </wsdl:message>
+    <wsdl:message name="PackageStopFault">
+        <wsdl:part name="part" element="packageStopError"/>
+    </wsdl:message>
+    <wsdl:message name="PolicyAttachmentFault">
+        <wsdl:part name="part" element="addPolicyError"/>
+    </wsdl:message>
+    <wsdl:message name="PolicyDetachmentFault">
+        <wsdl:part name="part" element="removePolicyError"/>
+    </wsdl:message>
+
+    <wsdl:message name="GetServicesInput">
+        <wsdl:part name="part" element="getServices"/>
+    </wsdl:message>
+    <wsdl:message name="GetServicesOutput">
+        <wsdl:part name="part" element="getServicesResponse"/>
+    </wsdl:message>
+
+    <!--Service deployment messages -->
+    <wsdl:message name="DeployServiceInput">
+        <wsdl:part name="part" element="deployService"/>
+    </wsdl:message>
+    <wsdl:message name="DeployServiceOutnput">
+        <wsdl:part name="part" element="deployServiceResponse"/>
+    </wsdl:message>
+    <wsdl:message name="DeployServicesInput">
+        <wsdl:part name="part" element="deployServices"/>
+    </wsdl:message>
+    <wsdl:message name="DeployServicesOutnput">
+        <wsdl:part name="part" element="deployServicesResponse"/>
+    </wsdl:message>
+
+    <!--Service undeployment messages -->
+    <wsdl:message name="UndeployServiceInput">
+        <wsdl:part name="part" element="undeployService"/>
+    </wsdl:message>
+    <wsdl:message name="UndeployServiceOutnput">
+        <wsdl:part name="part" element="undeployServiceResponse"/>
+    </wsdl:message>
+    <wsdl:message name="UndeployServicesInput">
+        <wsdl:part name="part" element="undeployServices"/>
+    </wsdl:message>
+    <wsdl:message name="UndeployServicesOutnput">
+        <wsdl:part name="part" element="undeployServicesResponse"/>
+    </wsdl:message>
+
+    <!--Project/ Package deployment and deletion messages-->
+    <wsdl:message name="DeployProjectInput">
+        <wsdl:part name="part" element="deployProject"/>
+    </wsdl:message>
+    <wsdl:message name="DeployProjectOutput">
+        <wsdl:part name="part" element="deployProjectResponse"/>
+    </wsdl:message>
+    <wsdl:message name="DeleteProjectInput">
+        <wsdl:part name="part" element="deleteProject"/>
+    </wsdl:message>
+    <wsdl:message name="DeleteProjectOutput">
+        <wsdl:part name="part" element="deleteProjectResponse"/>
+    </wsdl:message>
+    
+    <!-- Delete Provider package message  -->
+    <wsdl:message name="DeleteProviderInput">
+        <wsdl:part name="part" element="deleteProvider"/>
+    </wsdl:message>
+    <wsdl:message name="DeleteProviderOutput">
+        <wsdl:part name="part" element="deleteProviderResponse"/>
+    </wsdl:message>
+
+    <!--Service policy attachment and detachment messages-->
+    <wsdl:message name="AttachPolicyInput">
+        <wsdl:part name="part" element="addPolicy"/>
+    </wsdl:message>
+    <wsdl:message name="AttachPolicyOutput">
+        <wsdl:part name="part" element="addPolicyResponse"/>
+    </wsdl:message>
+    <wsdl:message name="DetachPolicyInput">
+        <wsdl:part name="part" element="removePolicy"/>
+    </wsdl:message>
+    <wsdl:message name="DetachPolicyOutput">
+        <wsdl:part name="part" element="removePolicyResponse"/>
+    </wsdl:message>
+
+    <wsdl:message name="PingInput">
+        <wsdl:part name="part" element="ping"/>
+    </wsdl:message>
+    <wsdl:message name="PingOutput">
+        <wsdl:part name="part" element="pingResponse"/>
+    </wsdl:message>
+    <!-- Deploy Connectors Message Input and Output -->
+    <wsdl:message name="DeployConnectorsInput">
+        <wsdl:part name="part" element="deployConnectors"/>
+    </wsdl:message>
+    <wsdl:message name="DeployConnectorsOutput">
+        <wsdl:part name="part" element="deployConnectorsResponse"/>
+    </wsdl:message>
+	
+	 <!-- Undeploy Connector Message Input and Output -->
+    <wsdl:message name="UndeployConnectorsInput">
+        <wsdl:part name="part" element="undeployConnectors"/>
+    </wsdl:message>
+    <wsdl:message name="UndeployConnectorsOutput">
+        <wsdl:part name="part" element="undeployConnectorsResponse"/>
+    </wsdl:message>
+    
+    <wsdl:portType name="DeploymentPortType">
+        <wsdl:operation name="ping">
+            <wsdl:input message="PingInput"/>
+            <wsdl:output message="PingOutput"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="getServices">
+            <wsdl:input message="GetServicesInput"/>
+            <wsdl:output message="GetServicesOutput"/>
+            <wsdl:fault name="InvalidRequestFault" message="InvalidRequestFault"/>
+            <wsdl:fault name="ServerRuntimeFault" message="ServerRuntimeFault"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="deployProject">
+            <wsdl:input message="DeployProjectInput"/>
+            <wsdl:output message="DeployProjectOutput"/>
+            <wsdl:fault name="InvalidRequestFault" message="InvalidRequestFault"/>
+            <wsdl:fault name="ServerRuntimeFault" message="ServerRuntimeFault"/>
+            <wsdl:fault name="PackageCreationFault" message="PackageCreationFault"/>
+            <wsdl:fault name="PackageAlreadyExistsFault" message="PackageAlreadyExistsFault"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="deleteProject">
+            <wsdl:input message="DeleteProjectInput"/>
+            <wsdl:output message="DeleteProjectOutput"/>
+            <wsdl:fault name="InvalidRequestFault" message="InvalidRequestFault"/>
+            <wsdl:fault name="ServerRuntimeFault" message="ServerRuntimeFault"/>
+            <wsdl:fault name="PackageDeleteFault" message="PackageDeleteFault"/>
+            <wsdl:fault name="PackageStopFault" message="PackageStopFault"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="deployService">
+            <wsdl:input message="DeployServiceInput"/>
+            <wsdl:output message="DeployServiceOutnput"/>
+            <wsdl:fault name="InvalidRequestFault" message="InvalidRequestFault"/>
+            <wsdl:fault name="ServerRuntimeFault" message="ServerRuntimeFault"/>
+            <wsdl:fault name="DeployServiceFault" message="DeployServiceFault"/>
+            <wsdl:fault name="PackageCreationFault" message="PackageCreationFault"/>
+            <wsdl:fault name="PackageAlreadyExistsFault" message="PackageAlreadyExistsFault"/>
+        </wsdl:operation>
+        
+        <!--  Connectors Deployment operation -->
+         <wsdl:operation name="deployConnectors">
+            <wsdl:input message="DeployConnectorsInput"/>
+            <wsdl:output message="DeployConnectorsOutput"/>
+            <wsdl:fault name="InvalidRequestFault" message="InvalidRequestFault"/>
+            <wsdl:fault name="ServerRuntimeFault" message="ServerRuntimeFault"/>
+            <wsdl:fault name="PackageCreationFault" message="PackageCreationFault"/>
+            <wsdl:fault name="PackageAlreadyExistsFault" message="PackageAlreadyExistsFault"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="deployServices">
+            <wsdl:input message="DeployServicesInput"/>
+            <wsdl:output message="DeployServicesOutnput"/>
+            <wsdl:fault name="InvalidRequestFault" message="InvalidRequestFault"/>
+            <wsdl:fault name="ServerRuntimeFault" message="ServerRuntimeFault"/>
+            <wsdl:fault name="PackageCreationFault" message="PackageCreationFault"/>
+            <wsdl:fault name="PackageAlreadyExistsFault" message="PackageAlreadyExistsFault"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="undeployService">
+            <wsdl:input message="UndeployServiceInput"/>
+            <wsdl:output message="UndeployServiceOutnput"/>
+            <wsdl:fault name="InvalidRequestFault" message="InvalidRequestFault"/>
+            <wsdl:fault name="ServerRuntimeFault" message="ServerRuntimeFault"/>
+            <wsdl:fault name="UndeployServiceFault" message="UndeployServiceFault"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="undeployServices">
+            <wsdl:input message="UndeployServicesInput"/>
+            <wsdl:output message="UndeployServicesOutnput"/>
+            <wsdl:fault name="InvalidRequestFault" message="InvalidRequestFault"/>
+            <wsdl:fault name="ServerRuntimeFault" message="ServerRuntimeFault"/>
+        </wsdl:operation>
+        
+          <!--  Connectors Undeployment operation -->
+         <wsdl:operation name="undeployConnectors">
+            <wsdl:input message="UndeployConnectorsInput"/>
+            <wsdl:output message="UndeployConnectorsOutput"/>
+            <wsdl:fault name="InvalidRequestFault" message="InvalidRequestFault"/>
+            <wsdl:fault name="ServerRuntimeFault" message="ServerRuntimeFault"/>
+        </wsdl:operation>
+
+		<!-- Delete Provider package operation -->
+		 <wsdl:operation name="deleteProvider">
+            <wsdl:input message="DeleteProviderInput"/>
+            <wsdl:output message="DeleteProviderOutput"/>
+            <wsdl:fault name="InvalidRequestFault" message="InvalidRequestFault"/>
+            <wsdl:fault name="ServerRuntimeFault" message="ServerRuntimeFault"/>
+            <wsdl:fault name="PackageDeleteFault" message="PackageDeleteFault"/>
+            <wsdl:fault name="PackageStopFault" message="PackageStopFault"/>
+        </wsdl:operation>
+		
+        <wsdl:operation name="attachPolicy">
+            <wsdl:input message="AttachPolicyInput"/>
+            <wsdl:output message="AttachPolicyOutput"/>
+            <wsdl:fault name="InvalidRequestFault" message="InvalidRequestFault"/>
+            <wsdl:fault name="ServerRuntimeFault" message="ServerRuntimeFault"/>
+            <wsdl:fault name="PolicyAttachmentFault" message="PolicyAttachmentFault"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="detachPolicy">
+            <wsdl:input message="DetachPolicyInput"/>
+            <wsdl:output message="DetachPolicyOutput"/>
+            <wsdl:fault name="InvalidRequestFault" message="InvalidRequestFault"/>
+            <wsdl:fault name="ServerRuntimeFault" message="ServerRuntimeFault"/>
+            <wsdl:fault name="PolicyDetachmentFault" message="PolicyDetachmentFault"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+</wsdl:definitions>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+       default-init-method="init"
+       default-destroy-method="shutdown">
+
+    <bean id="clusterManager" class="com.softwareag.pg.cluster.is.ISClusterManager">
+        <property name="active" value="true"/>
+        <property name="ehCacheConfigFilePath" value="${pg.ehcache.config.file}"/>
+        <property name="cacheManagerName">
+            <util:constant static-field="com.softwareag.cloudstreams.Constants.CACHE_MANAGER_NAME"/>
+        </property>
+    </bean>
+
+    <!--  **************************** PG MEN CONIFIGURATION ********************************* -->
+
+    <bean class="com.softwareag.cloudstreams.cache.ehcache.ClsEhcacheCacheFactory" id="ehCacheFactory" destroy-method="destroy" lazy-init="true">
+        <constructor-arg ref="PgMenSharedCacheManager"/>
+    </bean>
+
+    <bean id="PgMenSharedCacheManager" class="com.softwareag.cloudstreams.cache.CloudStreamsCacheManager"
+          depends-on="PgMenConfiguration,clusterManager" factory-method="inst"
+          init-method="init" destroy-method="destroy">
+
+        <!-- how long do we wait on lock timeouts. Value is in seconds -->
+        <property name="lockTimeOut" value="${pg.PgMenSharedCacheManager.lockTimeOut}"/>
+        <!-- how many times do we retry to obtain locks for macCache entries -->
+        <property name="retryCount" value="${pg.PgMenSharedCacheManager.lockRetry}"/>
+    </bean>
+
+</beans>

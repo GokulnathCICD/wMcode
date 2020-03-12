@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-init-method="init"
+       default-destroy-method="shutdown">
+
+    <bean id="EmailSender" class="com.softwareag.pg.pgmen.events.smtp.EmailSender" init-method="init"
+          destroy-method="destroy"
+          depends-on="EmailResourceHandler">
+        <property name="active" value="${pg.email.SenderActive}"/>
+        <property name="smtpHost" value="${pg.email.smtpHost}"/>
+        <property name="smtpPort" value="${pg.email.smtpPort}"/>
+        <property name="from" value="${pg.email.from}"/>
+        <property name="userName" value="${pg.email.userName}"/>
+        <property name="TLSEnabled" value="${pg.email.TLSEnabled}"/>
+        <property name="timeout" value="${pg.email.timeOut}"/>
+        <property name="charSet" value="${pg.email.charSet}"/>
+    </bean>
+
+    <bean id="EmailResourceHandler" class="com.softwareag.pg.pgmen.events.smtp.EmailResourceHandler">
+
+        <!--  The entry keys in this map must be synchronized to the enum class ResourcesContentTypes   -->
+        <!--  In other words, no additional keys may be added.  Only the values may be changed in order -->
+        <!--  to allow resource attachments to contain custom file suffixes.                            -->
+        <!--  Note, javaMail is very particular about the mime types used to send attachments.  Any     -->
+        <!--  subsequent changes to these mime types during future development should be handled with   -->
+        <!--  care.                                                                                     -->
+        <property name="resourceMimeTypes">
+            <map>
+                <entry key="application/gzip" value="gz"/>
+                <entry key="application/zip" value="zip"/>
+                <entry key="text/xml" value="xml"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="EmailTransactionFormatter" class="com.softwareag.pg.pgmen.events.smtp.EmailTransactionFormatter"
+          init-method="init" destroy-method="destroy">
+        <property name="payloadMimeType" value="${pg.email.resourceMimeType}"/>
+    </bean>
+
+    <bean id="EmailMonitorFormatter" class="com.softwareag.pg.pgmen.events.smtp.EmailMonitorFormatter"
+          init-method="init" destroy-method="destroy">
+        <property name="payloadMimeType" value="${pg.email.resourceMimeType}"/>
+    </bean>
+</beans>

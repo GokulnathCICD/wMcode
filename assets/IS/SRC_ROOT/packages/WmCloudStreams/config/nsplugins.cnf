@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<IDataXMLCoder version="1.0">
+  <record javaclass="com.wm.data.BasicData">
+    <list name="nsplugins">
+      <idataportable javaclass="com.wm.app.b2b.server.ns.NSPlugin">
+        <value name="FACTORY_CLASS">com.softwareag.cloudstreams.ns.CloudstreamConnectionDataNodeFactory</value>
+      </idataportable>
+      <idataportable javaclass="com.wm.app.b2b.server.ns.NSPlugin">
+        <value name="FACTORY_CLASS">com.softwareag.cloudstreams.ns.CloudstreamServiceFactory</value>
+      </idataportable>
+      <idataportable javaclass="com.wm.app.b2b.server.ns.NSPlugin">
+        <value name="FACTORY_CLASS">com.softwareag.cloudstreams.ns.CloudStreamsListenerNodeFactory</value>
+      </idataportable>
+    </list>
+  </record>
+</IDataXMLCoder>

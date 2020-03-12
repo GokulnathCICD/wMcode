@@ -1,0 +1,56 @@
+.menu {
+    height: 100%;
+    padding: 0;
+    border-right: none;
+}
+#heading {
+	height: 1em;
+	margin: 13px 0 0;
+}
+
+div.menusection-Solutions {
+	background-color: #f9f9f9;
+}
+
+.TreeView {
+    cursor: pointer;
+    font-style: normal;
+}
+
+.TreeView LI {
+    padding: 5px 0 0 18px;
+    list-style: none;
+    margin: 3px 0;
+}
+
+.TreeView, .TreeView ul {
+    margin: 0;
+    padding: 0;
+}
+
+LI.expanded {
+    background: url(../images/minus.gif) no-repeat left top;
+}
+
+LI.expanded ul {
+    display: block;
+}
+
+LI.collapsed {
+    background: url(../images/plus.gif) no-repeat left top;
+}
+
+LI.collapsed ul {
+    display: none;
+}
+
+li a {
+    text-decoration: none;
+    outline: none;
+    color: #633100;
+    padding: 1px;
+}
+
+.selected {
+    color: #cc0000;
+}

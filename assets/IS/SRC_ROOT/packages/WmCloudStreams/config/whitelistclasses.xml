@@ -1,0 +1,22 @@
+<IDataXMLCoder version="1.0">
+  <record javaclass="com.wm.data.ISMemDataImpl">
+    <array name="classlist" type="value" depth="1">
+		<value>com.softwareag.cloudstreams.client.common.BusinessObject</value>
+		<value>com.softwareag.cloudstreams.client.common.BusinessObjectAttribute</value>
+		<value>com.softwareag.cloudstreams.client.common.BusinessObjectNavigation</value>
+		<value>com.softwareag.cloudstreams.client.common.BusinessObjectRelationshipData</value>
+		<value>com.softwareag.cloudstreams.client.common.BusinessObjectWrapper</value>		
+		<value>com.softwareag.cloudstreams.client.common.BusinessParameterData</value>		
+		<value>com.softwareag.cloudstreams.client.common.CustomDocType</value>
+		<value>com.softwareag.cloudstreams.client.common.CustomHeader</value>
+		<value>com.softwareag.cloudstreams.client.common.CustomParamter</value>
+		<value>com.softwareag.cloudstreams.client.common.CustomProcessingType</value>
+		<value>com.softwareag.cloudstreams.client.common.InteractionWrapper</value>
+		<value>com.softwareag.cloudstreams.client.common.MultiBusinessObject</value>
+		<value>com.softwareag.cloudstreams.client.common.MultiCommon</value>
+		<value>com.softwareag.cloudstreams.client.common.MultiInteraction</value>
+		<value>com.softwareag.cloudstreams.client.common.ResourceSignatureInfo</value>
+		<value>com.softwareag.cloudstreams.plm.provider.ConnectorConfig</value>		
+	</array>
+  </record>
+</IDataXMLCoder>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-init-method="init"
+       default-destroy-method="shutdown">
+
+    <import resource="wst-cluster.xml"/>
+    <import resource="wst-email.xml"/>
+    <import resource="wst-locallog.xml"/>
+    <import resource="wst-jdbc.xml"/>
+
+
+    <bean id="PgMenConfiguration" class="com.softwareag.pg.pgmen.config.PgMenConfiguration"
+          factory-method="inst" destroy-method="destroy">
+        <!-- report pd stats after ?reportInterval? ticks (10 minutes) -->
+        <property name="reportInterval" value="${pg.PgMenConfiguration.reportInterval}"/>
+        <!-- global switch for pdCollection -->
+        <property name="pdCollectionEnabled" value="${pg.PgMenConfiguration.perfDataEnabled}"/>
+        <!-- global switches for event publication -->
+        <property name="lifeCycleEventPublished" value="${pg.PgMenConfiguration.publishLifeCycleEvents}"/>
+        <property name="errorEventPublished" value="${pg.PgMenConfiguration.publishErrorEvents}"/>
+        <property name="policyViolationEventPublished" value="${pg.PgMenConfiguration.publishPolicyViolationEvents}"/>
+
+        <!-- how often will a scheduled task run (in seconds) default should be 60 for production -->
+        <property name="tickInterval" value="${pg.PgMenConfiguration.tickInterval}"/>
+
+    </bean>
+
+
+    <!--
+            Supports conversion of performance data event to send to cs integrator
+          -->
+    <bean id="MetricsFormatter" class="com.softwareag.pg.pgmen.events.MetricInfoFormatter"
+          init-method="init" destroy-method="destroy">
+        <!--  if true, service faults are included in the avg and min/max aggregates  -->
+        <property name="includeFaults" value="${pg.PgMetricsFormatter.includeFaults}"/>
+    </bean>
+
+    <!-- Configures to send Performance Data events to the JDBC destination -
+         the default for CloudStreams.   -->
+    <bean id="PerfDataDestConfigurator"
+          class="com.softwareag.pg.pgmen.policy.config.DestinationConfigurator"
+          init-method="init" destroy-method="destroy">
+        <property name="destConfigs">
+            <list>
+                <bean class="com.softwareag.pg.pgmen.policy.config.JdbcConfig"/>
+            </list>
+        </property>
+        <property name="requestPayloadType" value="NONE"/>
+        <property name="responsePayloadType" value="NONE"/>
+    </bean>
+
+    <!-- Used for Mediator internals. Produces debug information regarding event generation if enabled. -->
+    <bean id="eventMarkerFactory" class="com.softwareag.pg.pgmen.events.EventMarkerFactory" init-method="init"
+          destroy-method="destroy">
+        <property name="eventMarkerEnabled" value="false"/>
+    </bean>
+
+    <!-- thread pool for data collection processing  -->
+    <bean id="CollectionPool" class="com.softwareag.pg.pgmen.readers.DCPool"
+          init-method="init" destroy-method="destroy">
+        <!-- named queue is a ref to another bean config -->
+        <property name="workQueue" ref="CollectionWorkQueue"/>
+        <!-- number of threads for WorkQueue -->
+        <property name="minThreads" value="${pg.CollectionPool.minThreads}"/>
+        <property name="maxThreads" value="${pg.CollectionPool.maxThreads}"/>
+        <property name="forcefulShutdown" value="${pg.CollectionPool.forcefulShutdown}"/>
+        <property name="poolName" value="${pg.CollectionPool.poolName}"/>
+    </bean>
+
+    <!-- workqueues used by the DCPools -->
+    <bean id="CollectionWorkQueue" class="com.softwareag.pg.pgmen.readers.DCWorkQueue">
+        <!--  queue capacity for the Collection WorkQueue -->
+        <property name="queueCapacity" value="${pg.CollectionWorkQueue.queueCapacity}"/>
+    </bean>
+
+    <bean id="IntervalManager" class="com.softwareag.pg.pgmen.policy.IntervalManager"
+          depends-on="PgMenSharedCacheManager,IntervalPool" factory-method="inst"
+          init-method="init" destroy-method="destroy">
+
+        <!--  how quickly does AccumulatorManager push sie events into shared cache? (in seconds) -->
+        <property name="sieFlushInterval" value="${pg.PgMenConfiguration.sieFlushInterval}"/>
+        <!--  how many sie's are cached locally for a virtual service before they are flushed to shared cache  -->
+        <property name="sieFlushThreshold" value="${pg.PgMenConfiguration.sieFlushThreshold}"/>
+
+    </bean>
+
+    <bean id="IntervalPool" class="com.softwareag.pg.pgmen.readers.DCIntervalPool"
+          depends-on="PgMenSharedCacheManager"
+          init-method="init" destroy-method="destroy">
+
+        <!-- number of threads for WorkQueue -->
+        <property name="minThreads" value="${pg.IntervalPool.minThreads}"/>
+        <property name="maxThreads" value="${pg.IntervalPool.maxThreads}"/>
+        <property name="forcefulShutdown" value="${pg.IntervalPool.forcefulShutdown}"/>
+        <property name="poolName" value="${pg.IntervalPool.poolName}"/>
+
+    </bean>
+
+    <bean id="ReportingPool" class="com.softwareag.pg.pgmen.readers.DCPool"
+          depends-on="PgMenSharedCacheManager"
+          init-method="init" destroy-method="destroy">
+        <!-- named queue is a ref to another bean config -->
+        <property name="workQueue" ref="ReportingWorkQueue"/>
+        <!-- number of threads for WorkQueue -->
+        <property name="minThreads" value="${pg.ReportingPool.minThreads}"/>
+        <property name="maxThreads" value="${pg.ReportingPool.maxThreads}"/>
+        <property name="forcefulShutdown" value="${pg.ReportingPool.forcefulShutdown}"/>
+        <property name="poolName" value="ReportingPool"/>
+    </bean>
+
+    <!-- workqueues used by the DCPools -->
+    <bean id="ReportingWorkQueue" class="com.softwareag.pg.pgmen.readers.DCWorkQueue">
+        <!--  queue capacity for the Collection WorkQueue -->
+        <property name="queueCapacity" value="${pg.ReportingWorkQueue.queueCapacity}"/>
+    </bean>
+
+    <!-- a utility object to supply UUID strings -->
+    <bean id="UuidGenerator" class="com.softwareag.pg.pgmen.util.IsUuidStringGenerator">
+    </bean>
+
+    <bean id="eventPublisher"
+          class="com.softwareag.pg.pgmen.events.EventPublisher" factory-method="inst"/>
+
+    <bean id="pgMenPolicyManager" class="com.softwareag.pg.pgmen.policy.PgMenPolicyManager" factory-method="inst"/>
+
+    <bean id="accumulatorManager" class="com.softwareag.pg.pgmen.processors.AccumulatorManager" factory-method="inst"/>
+
+</beans>

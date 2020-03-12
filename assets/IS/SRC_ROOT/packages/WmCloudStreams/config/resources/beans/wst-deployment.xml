@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <aop:aspectj-autoproxy/>
+
+    <bean class="com.softwareag.cloudstreams.deployment.deployer.DefaultProjectDeployer" name="projectDeployer"
+          depends-on="serviceDeployer">
+        <property name="serviceDeployer" ref="serviceDeployer"/>
+        <property name="packageMgr" ref="packageManager"/>
+        <property name="cloudStreamsConfig" ref="pgconfiguration"/>
+    </bean>
+
+    <bean class="com.softwareag.cloudstreams.deployment.deployer.DefaultServiceDeployer" name="serviceDeployer"
+          depends-on="pgServiceFactory, pgconfiguration">
+        <property name="serviceFactory" ref="pgServiceFactory"/>
+        <property name="cloudStreamsConfig" ref="pgconfiguration"/>
+        <property name="collectionKeysRegistry" ref="collectionKeysRegistry"/>
+    </bean>
+	
+	<bean class="com.softwareag.cloudstreams.deployment.connector.DefaultConnectorDeployer" name="connectorDeployer">
+		<property name="packageManager" ref="connectorPackageManager"/>
+		<property name="connectorBundleDeployer" ref="cntrBundleDeployer"/>
+	</bean>
+	
+	<bean id ="cntrBundleDeployer" class="com.softwareag.cloudstreams.deployment.connector.ConnectorBundleDeployer">
+		<property name="packageManager" ref="connectorPackageManager"/>
+	</bean>
+	
+
+	<bean id ="connectorPackageManager" class="com.softwareag.cloudstreams.deployment.connector.CloudProviderPackageManager">
+		<property name="cloudProviderPackageCreator" ref="cloudProviderpkgCreator"/>
+	</bean>
+	
+    <bean id="packageManager" class="com.softwareag.cloudstreams.deployment.ISPackageManager">
+        <property name="packageCreator" ref="pkgCreator"/>
+    </bean>
+
+    <bean class="com.softwareag.cloudstreams.deployment.DeploymentFacade" name="deploymentFacade"
+          factory-method="get"
+          depends-on="deploymentService">
+        <property name="deployService" ref="deploymentService"/>
+    </bean>
+
+    <bean class="com.softwareag.cloudstreams.deployment.ServicePersistenceManager" name="servicePersistenceManager">
+        <property name="packageMgr" ref="packageManager"/>
+    </bean>
+
+    <bean class="com.softwareag.cloudstreams.deployment.DeploymentServiceImpl" name="deploymentService"
+          depends-on="serviceDeployer">
+        <property name="serviceDeployer" ref="serviceDeployer"/>
+        <property name="projectDeployer" ref="projectDeployer"/>
+		<property name="connectorDeployer" ref="connectorDeployer"/>
+    </bean>
+
+    <bean class="com.softwareag.cloudstreams.deployment.aspects.DeploymentResponseAspect"/>
+
+    <bean class="com.softwareag.cloudstreams.deployment.aspects.PackageAspect">
+        <property name="packageManager" ref="packageManager"/>
+    </bean>
+
+    <bean class="com.softwareag.cloudstreams.deployment.aspects.UndeployAspect">
+        <property name="packageManager" ref="packageManager"/>
+        <property name="config" ref="pgconfiguration"/>
+    </bean>
+
+    <bean class="com.softwareag.cloudstreams.deployment.aspects.DeployAspect">
+        <property name="config" ref="pgconfiguration"/>
+    </bean>
+
+    <bean class="com.softwareag.cloudstreams.deployment.ISCustomPackageCreator" name="pkgCreator"/>
+	
+	<bean class="com.softwareag.cloudstreams.deployment.connector.CloudProviderPackageCreator" name="cloudProviderpkgCreator"/>
+
+    <bean class="com.softwareag.cloudstreams.lifecycle.PackageServicesDeployer" name="packageServicesDeployer">
+        <property name="serviceDeployer" ref="serviceDeployer"/>
+    </bean>
+
+    <bean class="com.softwareag.cloudstreams.lifecycle.PackageServicesUndeployer" name="packageServicesUndeployer">
+        <property name="serviceDeployer" ref="serviceDeployer"/>
+    </bean>
+
+    <bean class="com.softwareag.cloudstreams.lifecycle.ISPackageLifecycleHandler" id="packageInitializer" factory-method="get"
+          depends-on="packageManager, serviceDeployer">
+        <property name="packageMgr" ref="packageManager"/>
+        <property name="startupListeners">
+            <util:set>
+                <ref bean="packageServicesDeployer"/>
+                <ref bean="customPackagesRegistry"/>
+            </util:set>
+        </property>
+        <property name="shutdownListeners">
+            <util:set>
+                <ref bean="packageServicesUndeployer"/>
+                <ref bean="customPackagesRegistry"/>
+            </util:set>
+        </property>
+
+    </bean>
+
+    <bean id="collectionKeysRegistry" class="com.softwareag.cloudstreams.deployment.collectionkeys.CollectionKeysRegistry"
+          depends-on="PgMenSharedCacheManager,pgconfiguration"
+          init-method="init" destroy-method="shutdown"/>
+
+    <bean class="com.softwareag.cloudstreams.lifecycle.CustomPackagesRegistry" id="customPackagesRegistry"/>
+
+</beans>

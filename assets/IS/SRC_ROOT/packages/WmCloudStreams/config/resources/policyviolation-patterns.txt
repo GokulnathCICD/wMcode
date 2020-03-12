@@ -1,0 +1,5 @@
+#Java regex patterns that constitute possible policy violations
+#Specify each regex pattern in a separate line
+#Lines starting with '#' are treated as comments and blank lines are ignored
+
+.*RampartException.*

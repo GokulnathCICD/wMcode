@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd"
+       default-init-method="init"
+       default-destroy-method="shutdown">
+
+    <!-- This is PropertyPlaceHolderConfigurer. It first looks at the
+          properties element, then at all the locations defined in the
+          property element with name attribute of "locations". This allows
+          us to externalize properties in the wst-config.properties file-->
+    <bean id="pgPropertyPlaceholderConfigurer" class="com.softwareag.pg.util.spring.PGPropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>
+                file:packages/WmCloudStreams/config/resources/wst-config.properties
+            </value>
+        </property>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+    </bean>
+
+    <import resource="beans/wst-deployment.xml"/>
+    <import resource="beans/wst-mediators.xml"/>
+    <import resource="beans/wst-core.xml"/>
+    <import resource="beans/wst-transport.xml"/>
+    <import resource="beans/wst-security.xml"/>
+    <import resource="beans/wst-streaming.xml"/>
+    <import resource="beans/pgmen/wst-pgmen.xml"/>
+    <import resource="sts/sts-config.xml"/>
+	
+</beans>

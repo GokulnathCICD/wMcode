@@ -1,0 +1,14 @@
+general-config.dsp
+email-config.dsp
+db-config.dsp
+cloudstreams-services.dsp
+sts-config.dsp
+service-fault-config.dsp
+consumers.dsp
+oauthTokens.dsp
+connector-list.dsp
+streaming-providers.dsp
+streaming-subscribers.dsp
+index.dsp
+menu.dsp
+top.dsp

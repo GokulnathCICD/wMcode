@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-init-method="init"
+       default-destroy-method="shutdown">
+
+    <bean class="com.softwareag.cloudstreams.config.CloudStreamsServiceFactory" name="pgServiceFactory"
+          depends-on="mediatorFactoryManager">
+        <property name="mediatorProvider" ref="mediatorFactoryManager"/>
+        <property name="mediatorFactoryProvider" ref="mediatorFactoryManager"/>
+    </bean>
+
+    <bean class="com.softwareag.pg.mediators.factory.MediatorFactoryManager"
+          name="mediatorFactoryManager, mediatorProvider, mediatorFactoryProvider">
+        <property name="factories">
+            <set>
+                <bean class="com.softwareag.pg.mediators.factory.AuthorizationMediatorFactory"/>
+
+                <bean class="com.softwareag.pg.mediators.factory.PgMenPolicyActionListMediatorFactory"
+                      parent="listMediatorFactory"/>
+
+                <bean class="com.softwareag.pg.mediators.factory.PgMenLogPolicyMediatorFactory"/>
+                <bean class="com.softwareag.pg.mediators.factory.PgMenMonitorPolicyMediatorFactory"/>
+                <bean class="com.softwareag.pg.mediators.factory.PgMenSlaPolicyMediatorFactory"/>
+
+                <bean class="com.softwareag.pg.config.PGSendMediatorFactory"/>
+                <bean class="com.softwareag.pg.mediators.factory.RequireHTTPAuthMediatorFactory"/>
+
+                <bean class="com.softwareag.pg.mediators.factory.SequenceMediatorFactory"
+                      parent="listMediatorFactory"/>
+
+                <bean class="com.softwareag.pg.mediators.factory.routing.AndMediatorFactory"
+                      parent="listMediatorFactory"/>
+
+                <bean class="com.softwareag.pg.mediators.factory.routing.OrMediatorFactory"
+                      parent="listMediatorFactory"/>
+
+                <bean class="com.softwareag.pg.mediators.factory.routing.RuleMediatorFactory"
+                      parent="listMediatorFactory"/>
+
+                <bean class="com.softwareag.pg.mediators.factory.routing.ContextMediatorFactory"
+                      parent="listMediatorFactory"/>
+
+                <bean class="com.softwareag.pg.mediators.factory.routing.ContentMediatorFactory"
+                      parent="listMediatorFactory"/>
+
+                <bean class="com.softwareag.cloudstreams.mediators.factory.ConditionMediatorFactory"/>
+
+                <bean class="com.softwareag.pg.mediators.factory.JMSConfigMediatorFactory"/>
+                <bean class="com.softwareag.pg.mediators.factory.HTTPHeadersMediatorFactory"/>
+                <bean class="com.softwareag.pg.mediators.factory.IDConsumerMediatorFactory"/>
+                <bean class="com.softwareag.pg.mediators.factory.EncryptResponseMediatorFactory"/>
+                <bean class="com.softwareag.pg.mediators.factory.SchemaMediatorFactory"/>
+
+                <bean class="com.softwareag.pg.mediators.factory.XSLTMediatorFactory"/>
+                <bean class="com.softwareag.pg.mediators.factory.PgFaultMediatorFactory"/>
+
+                <!--IS specific mediators-->
+                <bean class="com.softwareag.pg.mediators.InvokeESBMediatorFactory"/>
+            </set>
+        </property>
+    </bean>
+
+    <bean class="com.softwareag.pg.mediators.factory.AbstractListMediatorFactory"
+          name="listMediatorFactory"
+          depends-on="mediatorFactoryManager" abstract="true">
+        <property name="mediatorProvider" ref="mediatorFactoryManager"/>
+    </bean>
+
+</beans>

@@ -1,0 +1,741 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://deployment.cloudstreams.softwareag.com"
+           xmlns="http://deployment.cloudstreams.softwareag.com"
+           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+           jaxb:version="2.1"
+           elementFormDefault="qualified">
+
+    <!--
+        CloudStreams Schema Modification Guidelines:
+        ***********************************
+        Naming conventions:
+        1. All complex types and groups will use Pascal casing (e.g. BaseMessageType)
+        2. All element names will use either lowercase (E.g. "name" ) or camel casing (e.g. "deployService" ) if they combine 2+ words
+        3. All attribute names will follow same rule as element names
+        4. WSDL operations will refer to elements with same name:
+            For request: element name will be like 'deployService' (no Request appended)
+            For response: element name will be request name + 'Response' appended to it
+    -->
+
+    <!--    JAXB-binding specific customizations-->
+    <xs:annotation>
+        <xs:appinfo>
+            <jaxb:globalBindings>
+                <!--prefer java util calendar over XmlGregorianCalendar for convenience-->
+                <jaxb:javaType name="java.util.Calendar" xmlType="xs:dateTime"
+                               parseMethod="javax.xml.bind.DatatypeConverter.parseDateTime"
+                               printMethod="javax.xml.bind.DatatypeConverter.printDateTime"/>
+            </jaxb:globalBindings>
+
+            <!--generate an Java enum class for xs:enumeration -->
+            <jaxb:bindings node="//xs:element[@name='state']/xs:simpleType">
+                <jaxb:typesafeEnumClass name="State"/>
+            </jaxb:bindings>
+
+            <!--generate classes in this package-->
+            <jaxb:schemaBindings>
+                <jaxb:package name="com.softwareag.cloudstreams.deployment.model"/>
+            </jaxb:schemaBindings>
+        </xs:appinfo>
+    </xs:annotation>
+
+    <!-- ************** Types common to most requests and responses **************** -->
+
+    <xs:complexType name="AbstractRequest" abstract="true">
+        <xs:sequence>
+            <xs:element ref="targetName"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="AbstractResponse">
+        <xs:sequence>
+            <xs:element ref="targetName"/>
+            <xs:element ref="timestamp"/>
+            <xs:element name="timetaken" type="xs:duration"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="BaseDeployMessage" abstract="true">
+        <xs:complexContent>
+            <xs:extension base="AbstractRequest">
+                <xs:sequence>
+                    <xs:element ref="packageName"/>
+					<xs:element ref="description" minOccurs="0"/>
+                    <xs:element ref="publisher" minOccurs="0"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="BaseDeployResponseMessage" abstract="true">
+        <xs:complexContent>
+            <xs:extension base="AbstractResponse">
+                <xs:sequence>
+                    <xs:element ref="packageName"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="targetName" type="xs:string"/>
+    <xs:element name="timestamp" type="xs:dateTime"/>
+    <xs:element name="packageName" type="xs:Name"/>
+	<xs:element name="description" type="xs:string"/>
+	<xs:element name="publisher" type="xs:string"/>
+    <xs:element name="policyName" type="xs:NCName"/>
+    <xs:element name="serviceName" type="xs:NCName"/>
+    
+    <!-- Cloud connector bundle ID for deploy connector request -->
+    <xs:element name="connectorID" type="xs:NCName"/>
+
+    <xs:attributeGroup name="serviceAttributes">
+        <xs:attribute name="name" type="xs:NMTOKEN"/>
+        <xs:attribute name="key" type="xs:NMTOKEN"/>
+    </xs:attributeGroup>
+
+    <!--reference to a VS by means of its name and key -->
+    <xs:element name="serviceRef">
+        <xs:complexType>
+            <xs:attributeGroup ref="serviceAttributes"/>
+        </xs:complexType>
+    </xs:element>
+
+
+    <!--   virtual service information that is part of a deploy VS request -->
+    <xs:element name="serviceInfo">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="serviceName"/>
+                <xs:element name="redeploy" type="xs:boolean" default="false"/>
+                <xs:element name="vsdXml" type="xs:anyType"/>
+                <xs:element name="vsdZip" type="xs:base64Binary" minOccurs="0"/>
+            </xs:sequence>
+            <xs:attribute name="key" type="xs:NMTOKEN"/>
+        </xs:complexType>
+    </xs:element>
+
+
+    <!--associates a single policy with a VS reference -->
+    <xs:element name="policyInfo">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="serviceRef"/>
+                <!--information about a policy being added to a VS -->
+                <xs:element name="policy">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:any maxOccurs="unbounded" namespace="##any" processContents="lax"/>
+                        </xs:sequence>
+                        <xs:attribute name="name" type="xs:NMTOKEN"/>
+                        <xs:attribute name="type" type="xs:NMTOKEN"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Connector bundle information required for deploy connector Bundle -->
+    <xs:element name="connectorInfo">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element ref="connectorID"/>
+            <xs:element name="redeploy" type="xs:boolean" default="false"/>
+            <xs:element name="connectorZip" type="xs:base64Binary" minOccurs="0"/>
+         </xs:sequence>
+         <xs:attribute name="key" type="xs:NMTOKEN"/>
+      </xs:complexType>
+    </xs:element>
+    <!-- *************** Deployment Request related schema definition *************** -->
+
+    <xs:element name="ping" type="PingRequest"/>
+
+    <xs:element name="getServices" type="GetServicesRequest"/>
+
+    <xs:element name="deployProject" type="DeployProjectRequest"/>
+
+    <xs:element name="deleteProject" type="DeleteProjectRequest"/>
+
+    <xs:element name="deployService" type="DeployServiceRequest"/>
+
+    <xs:element name="deployServices" type="DeployServicesRequest"/>
+
+    <xs:element name="undeployService" type="UndeployServiceRequest"/>
+
+    <xs:element name="undeployServices" type="UndeployServicesRequest"/>
+
+    <xs:element name="addPolicy" type="AddPolicyRequest"/>
+
+    <xs:element name="removePolicy" type="RemovePolicyRequest"/>
+    
+    <xs:element name="deployConnectors" type="DeployConnectorsRequest"/>
+    
+    <xs:element name="undeployConnectors" type="UndeployConnectorsRequest"/>
+    
+    <xs:element name="deleteProvider" type="DeleteProviderRequest"/>
+    
+
+    <xs:complexType name="PingRequest">
+        <xs:complexContent>
+            <xs:extension base="AbstractRequest"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="GetServicesRequest">
+        <xs:complexContent>
+            <xs:extension base="AbstractRequest"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="DeleteProjectRequest">
+        <xs:complexContent>
+            <xs:extension base="BaseDeployMessage"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+ 	<!-- Delete Provider package request -->
+ 	<xs:complexType name="DeleteProviderRequest">
+        <xs:complexContent>
+            <xs:extension base="BaseDeployMessage"/>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="DeployProjectRequest">
+        <xs:complexContent>
+            <xs:extension base="DeployServicesRequest">
+                <xs:sequence>
+                    <xs:element name="policies">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element ref="policyInfo" maxOccurs="unbounded"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <!--force the removal of a VS even if there are any connector service associations-->
+    <xs:element name="forceDelete" type="xs:boolean" default="false"/>
+
+    <xs:complexType name="UndeployServiceRequest">
+        <xs:complexContent>
+            <xs:extension base="BaseDeployMessage">
+                <xs:sequence>
+                    <xs:element ref="forceDelete"/>
+                    <xs:element ref="serviceRef"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="UndeployServicesRequest">
+        <xs:complexContent>
+            <xs:extension base="BaseDeployMessage">
+                <xs:sequence>
+                    <xs:element ref="forceDelete"/>
+                    <xs:element name="services">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element ref="serviceRef" maxOccurs="unbounded"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+	<!-- Undeploy Connectors -->
+    <xs:complexType name="UndeployConnectorsRequest">
+        <xs:complexContent>
+            <xs:extension base="BaseDeployMessage">
+                <xs:sequence>
+                    <xs:element name="connectors">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element ref="connectorID" maxOccurs="unbounded"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    
+    <!--should a new IS package be created when the service is deployed? default is false-->
+    <xs:element name="createPackage" type="xs:boolean" default="false"/>
+
+    <xs:complexType name="DeployServicesRequest">
+        <xs:complexContent>
+            <xs:extension base="BaseDeployMessage">
+                <xs:sequence>
+                    <!--  'createPackage' is optional when this is part of deployProject-->
+                    <xs:element ref="createPackage" minOccurs="0"/>
+                    <xs:element name="services">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element ref="serviceInfo" maxOccurs="unbounded"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <!--    virtual service deploy-specific request message-->
+    <xs:complexType name="DeployServiceRequest">
+        <xs:complexContent>
+            <xs:extension base="BaseDeployMessage">
+                <xs:sequence>
+                    <xs:element ref="createPackage"/>
+                    <xs:element ref="serviceInfo"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <!--   policy attachment to service request message-->
+    <xs:complexType name="AddPolicyRequest">
+        <xs:complexContent>
+            <xs:extension base="BaseDeployMessage">
+                <xs:sequence>
+                    <xs:element name="update" type="xs:boolean" default="false"/>
+                    <xs:element ref="policyInfo"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <!--    policy detachment from service request message-->
+    <xs:complexType name="RemovePolicyRequest">
+        <xs:complexContent>
+            <xs:extension base="BaseDeployMessage">
+                <xs:sequence>
+                    <xs:element ref="policyName"/>
+                    <xs:element ref="serviceRef"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+     <!--  connector deployment service request message-->
+    <xs:complexType name="DeployConnectorsRequest">
+        <xs:complexContent>
+            <xs:extension base="BaseDeployMessage">
+                <xs:sequence>
+                    <xs:element ref="createPackage"/>
+                    <xs:element name="connectors">
+                      <xs:complexType>
+                        <xs:sequence>
+                    		<xs:element ref="connectorInfo" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <!-- *************** Deployment Response related schema definition *************** -->
+
+    <xs:element name="status" type="Status"/>
+
+    <xs:element name="pingResponse" type="PingResponse"/>
+
+    <!--    Return a list of all currently deployed services in CloudStreams-->
+    <xs:element name="getServicesResponse" type="GetServicesResponse"/>
+
+    <xs:element name="deployServiceResponse" type="DeployServiceResponse"/>
+
+    <xs:element name="deployServicesResponse" type="DeployServicesResponse"/>
+
+    <xs:element name="undeployServiceResponse" type="UndeployServiceResponse"/>
+
+    <xs:element name="undeployServicesResponse" type="UndeployServicesResponse"/>
+
+    <xs:element name="addPolicyResponse" type="PolicyResponseStatus"/>
+
+    <xs:element name="removePolicyResponse" type="PolicyResponseStatus"/>
+
+    <xs:element name="deleteProjectResponse" type="DeleteProjectResponse"/>
+
+    <xs:element name="deployProjectResponse" type="DeployProjectResponse"/>
+    
+    <xs:element name="deployConnectorsResponse" type="DeployConnectorsResponse"/>
+    
+	<xs:element name="undeployConnectorsResponse" type="UndeployConnectorsResponse"/>
+	
+	<xs:element name="deleteProviderResponse" type="DeleteProviderResponse"/>
+	
+	
+	
+    <xs:complexType name="PingResponse">
+        <xs:complexContent>
+            <xs:extension base="AbstractResponse"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="GetServicesResponse">
+        <xs:complexContent>
+            <xs:extension base="AbstractResponse">
+                <xs:sequence>
+                    <xs:element name="services">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="service" maxOccurs="unbounded">
+                                    <xs:complexType>
+                                        <xs:attributeGroup ref="serviceAttributes"/>
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="DeleteProjectResponse">
+        <xs:complexContent>
+            <xs:extension base="ResponseWithStatus">
+                <xs:sequence>
+                    <xs:element name="services" type="ServicesStatus"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <!-- Delete Provider package response -->
+     <xs:complexType name="DeleteProviderResponse">
+        <xs:complexContent>
+            <xs:extension base="ResponseWithStatus">
+                <xs:sequence>
+                    <xs:element name="connectorsStatus" type="ConnectorsStatus"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="DeployProjectResponse">
+        <xs:complexContent>
+            <xs:extension base="ResponseWithStatus">
+                <xs:sequence>
+                    <xs:element name="services" type="ServicesStatus"/>
+                    <xs:element name="policies">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="policy" maxOccurs="unbounded">
+                                    <xs:complexType>
+                                        <xs:sequence>
+                                            <xs:group ref="PolicyResponseInfo"/>
+                                        </xs:sequence>
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <!--Policy response info with status message -->
+    <xs:complexType name="PolicyResponseStatus">
+        <xs:complexContent>
+            <xs:extension base="ResponseWithStatus">
+                <xs:sequence>
+                    <xs:group ref="PolicyResponseInfo"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+
+    <!--    base status type that contains the state and the message-->
+    <xs:complexType name="Status">
+        <xs:sequence>
+            <xs:element name="state" minOccurs="1">    <!--required-->
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="SUCCESS"/>
+                        <xs:enumeration value="FAILURE"/>
+                        <xs:enumeration value="PARTIAL"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="message" type="xs:string"/>
+            <xs:element name="endpoints" minOccurs="0">  <!--optional; only for deployment service(s)/proj response-->
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="endpoint" type="xs:anyURI" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <!--    base response message with status information-->
+    <xs:complexType name="ResponseWithStatus">
+        <xs:complexContent>
+            <xs:extension base="BaseDeployResponseMessage">
+                <xs:sequence>
+                    <xs:element ref="status"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <!--indicates if the package was created when the service(s) deployment request was handled-->
+    <xs:element name="packageCreated" type="xs:boolean" default="false"/>
+
+    <!--status of a service related operation -->
+    <xs:group name="ServiceStatus">
+        <xs:sequence>
+            <xs:element ref="serviceRef"/>
+            <xs:element ref="status"/>
+        </xs:sequence>
+    </xs:group>
+    
+     <!--status of a connectors related operation -->
+    <xs:group name="ConnectorStatus">
+        <xs:sequence>
+            <xs:element ref="connectorID"/>
+            <xs:element ref="status"/>
+        </xs:sequence>
+    </xs:group>
+
+    <!--status of all services updated as part of deploy services / deploy project / undeploy services -->
+    <xs:complexType name="ServicesStatus">
+        <xs:sequence>
+            <xs:element name="service" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:group ref="ServiceStatus"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <!--status of all connectors updated as part of deploy connectors / undeploy connectors -->
+    <xs:complexType name="ConnectorsStatus">
+        <xs:sequence>
+            <xs:element name="connectorStatusGroup" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:group ref="ConnectorStatus"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="DeployServicesResponse">
+        <xs:complexContent>
+            <xs:extension base="BaseDeployResponseMessage">
+                <xs:sequence>
+                    <xs:element ref="packageCreated"/>
+                    <xs:element name="services" type="ServicesStatus"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="DeployServiceResponse">
+        <xs:complexContent>
+            <xs:extension base="BaseDeployResponseMessage">
+                <xs:sequence>
+                    <xs:element ref="packageCreated"/>
+                    <xs:group ref="ServiceStatus"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="UndeployServiceResponse">
+        <xs:complexContent>
+            <xs:extension base="BaseDeployResponseMessage">
+                <xs:sequence>
+                    <xs:group ref="ServiceStatus"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="UndeployServicesResponse">
+        <xs:complexContent>
+            <xs:extension base="BaseDeployResponseMessage">
+                <xs:sequence>
+                    <xs:element name="services" type="ServicesStatus"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <!-- Undeploy Connectors Response -->
+     <xs:complexType name="UndeployConnectorsResponse">
+        <xs:complexContent>
+            <xs:extension base="BaseDeployResponseMessage">
+                <xs:sequence>
+                    <xs:element name="connectorsStatus" type="ConnectorsStatus"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <!-- Connectors deployment response message -->
+    <xs:complexType name="DeployConnectorsResponse">
+        <xs:complexContent>
+            <xs:extension base="BaseDeployResponseMessage">
+                <xs:sequence>
+                    <xs:element ref="packageCreated"/>
+                    <xs:element name="connectorsStatus" type="ConnectorsStatus"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <!--Policy attachment or detachment response info -->
+    <xs:group name="PolicyResponseInfo">
+        <xs:sequence>
+            <xs:element ref="serviceRef"/>
+            <xs:element ref="policyName"/>
+            <xs:element name="updated" type="xs:boolean" default="false"/>
+        </xs:sequence>
+    </xs:group>
+
+    <!-- ******************************* Deployment Errors ************************ -->
+
+    <xs:complexType name="AbstractError" abstract="true">
+        <xs:sequence>
+            <xs:element ref="targetName"/>
+            <xs:element name="message" type="xs:string"/>
+            <xs:element ref="timestamp"/>
+            <xs:element name="exception" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="invalidRequestError">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="AbstractError"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="serverRuntimeError">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="AbstractError"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="AbstractPackageError" abstract="true">
+        <xs:complexContent>
+            <xs:extension base="AbstractError">
+                <xs:sequence>
+                    <xs:element ref="packageName"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="packageDeleteError">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="AbstractPackageError"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="packageAlreadyExistsError">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="AbstractPackageError"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="packageCreationError">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="AbstractPackageError"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="packageStopError">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="AbstractPackageError"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:complexType name="AbstractServiceError" abstract="true">
+        <xs:complexContent>
+            <xs:extension base="AbstractError">
+                <xs:sequence>
+                    <xs:element ref="serviceName"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+     <xs:complexType name="AbstractConnectorError" abstract="true">
+        <xs:complexContent>
+            <xs:extension base="AbstractError">
+                <xs:sequence>
+                    <xs:element ref="connectorID"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="deployServiceError">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="AbstractServiceError"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="undeployServiceError">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="AbstractServiceError"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="AbstractPolicyError" abstract="true">
+        <xs:complexContent>
+            <xs:extension base="AbstractError">
+                <xs:sequence>
+                    <xs:element name="policyName" type="xs:NMTOKEN"/>
+                    <xs:element name="policyType" type="xs:NMTOKEN"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="addPolicyError">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="AbstractPolicyError"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="removePolicyError">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="AbstractPolicyError"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
+

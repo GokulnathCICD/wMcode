@@ -1,0 +1,369 @@
+div.Title, caption.Title
+{
+  background-color: Transparent;
+  color: Black;
+  font-family: 'Roboto';
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  margin-top: -30px;
+}
+
+div.important, caption.important
+{
+  background-color: #EEEEEE;
+  color: Black;
+  font-family: 'Roboto';
+  font-size: 14px;
+  font-weight: normal;
+  margin-bottom: 6pt;
+  margin-left: 2pt;
+  margin-right: 2pt;
+  margin-top: 6pt;
+  padding-bottom: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 4px;
+}
+
+div.Section, caption.Section
+{
+  background-color: Transparent;
+  color: Black;
+  font-family: 'Roboto';
+  font-size: 14px;
+  font-weight: normal;
+  margin-bottom: 6px;
+  margin-top: 9px;
+}
+
+div.Section_Title, caption.Section_Title
+{
+  background-color: Transparent;
+  color: Black;
+  font-family: 'Roboto';
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  margin-top: 18px;
+}
+
+div.Body, caption.Body
+{
+  background-color: Transparent;
+  color: Black;
+  font-family: 'Roboto';
+  font-size: 14px;
+  font-weight: normal;
+  margin-bottom: 6px;
+  margin-top: 9px;
+}
+
+div.List_1, caption.List_1
+{
+  background-color: Transparent;
+  color: Black;
+  font-family: 'Roboto';
+  font-size: 14px;
+  font-weight: normal;
+  margin-bottom: 6px;
+  margin-left: 18pt;
+  margin-top: 9px;
+  text-indent: -18pt;
+}
+
+div.norules-head, caption.norules-head
+{
+  background-color: Transparent;
+  border-bottom-color: #007096;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  color: Black;
+  font-family: 'Roboto';
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 6px;
+  margin-right: 8px;
+  margin-top: 9px;
+}
+
+div.Table_Cell, caption.Table_Cell
+{
+  background-color: Transparent;
+  color: Black;
+  font-family: 'Roboto';
+  font-size: 14px;
+  font-weight: normal;
+  margin-bottom: 6px;
+  margin-top: 9px;
+  vertical-align: top;
+}
+
+div.Chapter, caption.Chapter
+{
+  background-color: Transparent;
+  color: Black;
+  font-family: 'Roboto';
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  margin-top: -30px;
+}
+
+div.Heading_1, caption.Heading_1
+{
+  background-color: Transparent;
+  color: Black;
+  font-family: 'Roboto';
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  margin-top: -30px;
+}
+
+div.Definition_Term, caption.Definition_Term
+{
+  background-color: Transparent;
+  color: Black;
+  font-family: 'Roboto';
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 0px;
+  margin-left: 15px;
+  margin-top: 9px;
+}
+
+div.Definition_Description, caption.Definition_Description
+{
+  background-color: Transparent;
+  color: Black;
+  font-family: 'Roboto';
+  font-size: 14px;
+  font-weight: normal;
+  margin-bottom: 6px;
+  margin-left: 22px;
+  margin-top: 0px;
+}
+
+div.Preformatted_1, caption.Preformatted_1
+{
+  background-color: #E5E4E4;
+  border-bottom-color: buttonface;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-left-color: buttonface;
+  border-left-style: solid;
+  border-left-width: 1px;
+  border-right-color: buttonface;
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-top-color: buttonface;
+  border-top-style: solid;
+  border-top-width: 1px;
+  color: #333333;
+  font-family: 'Source Code Pro';
+  font-size: 13px;
+  font-weight: normal;
+  margin-bottom: 10px;
+  margin-left: 18pt;
+  margin-top: 0px;
+  overflow: auto;
+  padding-bottom: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 4px;
+  white-space: pre;
+}
+
+div.List_2, caption.List_2
+{
+  background-color: Transparent;
+  color: Black;
+  font-family: 'Roboto';
+  font-size: 14px;
+  font-weight: normal;
+  margin-bottom: 6px;
+  margin-left: 36pt;
+  margin-top: 9px;
+  text-indent: -18pt;
+}
+
+div.Note_1, caption.Note_1
+{
+  background-color: #EEEEEE;
+  color: Black;
+  font-family: 'Roboto';
+  font-size: 14px;
+  font-weight: normal;
+  margin-bottom: 6pt;
+  margin-left: 20pt;
+  margin-right: 2pt;
+  margin-top: 6pt;
+  padding-bottom: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 4px;
+}
+
+div.Body_1, caption.Body_1
+{
+  background-color: Transparent;
+  color: Black;
+  font-family: 'Roboto';
+  font-size: 14px;
+  font-weight: normal;
+  margin-bottom: 6px;
+  margin-left: 18pt;
+  margin-top: 9px;
+}
+
+div.Link_List_Title, caption.Link_List_Title
+{
+  background-color: Transparent;
+  color: Black;
+  font-family: 'Roboto';
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  margin-top: 18px;
+}
+
+div.heading-no-quotes, caption.heading-no-quotes
+{
+  background-color: Transparent;
+  color: #804000;
+  font-family: Calibri;
+  font-size: 12pt;
+  margin-bottom: 6pt;
+  margin-top: 6pt;
+}
+
+div.Note, caption.Note
+{
+  background-color: #EEEEEE;
+  color: Black;
+  font-family: 'Roboto';
+  font-size: 14px;
+  font-weight: normal;
+  margin-bottom: 6pt;
+  margin-left: 2pt;
+  margin-right: 2pt;
+  margin-top: 6pt;
+  padding-bottom: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 4px;
+}
+
+div.List_2_Continued, caption.List_2_Continued
+{
+  background-color: Transparent;
+  color: Black;
+  font-family: 'Roboto';
+  font-size: 14px;
+  font-weight: normal;
+  margin-bottom: 6px;
+  margin-left: 36pt;
+  margin-top: 9px;
+}
+
+div.Preformatted_2, caption.Preformatted_2
+{
+  background-color: #E5E4E4;
+  border-bottom-color: buttonface;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-left-color: buttonface;
+  border-left-style: solid;
+  border-left-width: 1px;
+  border-right-color: buttonface;
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-top-color: buttonface;
+  border-top-style: solid;
+  border-top-width: 1px;
+  color: #333333;
+  font-family: 'Source Code Pro';
+  font-size: 13px;
+  font-weight: normal;
+  margin-bottom: 10px;
+  margin-left: 36pt;
+  margin-top: 0px;
+  overflow: auto;
+  padding-bottom: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 4px;
+  white-space: pre;
+}
+
+div.nonumber, caption.nonumber
+{
+  background-color: Transparent;
+  color: Black;
+  font-family: 'Roboto';
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  margin-top: -30px;
+}
+
+span.Citation
+{
+  font-style: italic;
+}
+
+span.uicontrol
+{
+  font-weight: bold;
+}
+
+span.inlinetitle
+{
+  font-weight: bold;
+}
+
+span.varname
+{
+  font-style: italic;
+}
+
+span.emphasis
+{
+  font-style: italic;
+}
+
+span.apiname
+{
+  font-family: 'Source Code Pro';
+  font-size: 13px;
+}
+
+span.parmname
+{
+  font-family: 'Source Code Pro';
+  font-size: 13px;
+}
+
+span.filepath
+{
+  font-family: "Source Code Pro";
+}
+
+span.codeph
+{
+  font-family: 'Source Code Pro';
+  font-size: 13px;
+}
+
+span.userinput
+{
+  font-family: 'Source Code Pro';
+  font-size: 13px;
+}
+
+span.Bold
+{
+  font-weight: bold;
+}
+

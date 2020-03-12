@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-init-method="init"
+       default-destroy-method="shutdown">
+
+<!-- See IS functional alias for any of the datasource driver property settings -->
+<bean id="EventJdbcDataSource"  class="com.wm.app.b2b.server.jdbc.JDBCConnDataSource" >
+ <constructor-arg>
+    <value>CloudStreams</value>
+ </constructor-arg>
+</bean>
+
+    <!-- It is assumed that any of the jdbc driver properties will be set on the datasource -->
+    <bean id="JdbcEventSender" class="com.softwareag.pg.pgmen.events.jdbc.JdbcEventDestination"
+          init-method="init" destroy-method="destroy" depends-on="JdbcEventSenderPool">
+          
+        <property name="dataSource" ref="EventJdbcDataSource"/>
+        <property name="active" value="${pg.jdbc.active}"/>
+        <property name="batchSize" value="${pg.jdbc.batchSize}"/>
+        <!-- thread will flush queued events to data source every 'flushInterval' milliseconds -->
+        <property name="flushInterval" value="3000"/>
+        
+        <!-- a debug log message may be sent to server.log if it takes more than 'jdbcLogThreshold' msecs -->
+        <!-- to get/close a prepared statement/connection                                                                          -->
+        <property name="jdbcLogThreshold" value="50"/>
+        <!-- a debug log message may be sent to server.log if it takes more than 'executeLogThreshold' msecs -->
+        <!-- to execute a jdbc batch update                                                                                                  -->
+        <property name="executeLogThreshold" value="500"/>
+        
+    </bean>
+    
+    <bean id="JdbcTransactionFormatter" class="com.softwareag.pg.pgmen.events.jdbc.JdbcTransactionFormatter"
+          init-method="init" destroy-method="destroy">
+          <!-- one character limit for boolean formatted values -->
+          <property name="trueFormat" value="Y"/>
+          <property name="falseFormat" value="N"/>
+          <property name="tableName" value="CLS_TXN_EVENT"/>
+    </bean>    
+          
+    <bean id="JdbcPerfMetricsFormatter" class="com.softwareag.pg.pgmen.events.jdbc.JdbcPerfMetricsFormatter"
+          init-method="init" destroy-method="destroy">    
+          <!-- one character limit for boolean formatted values -->
+          <property name="trueFormat" value="Y"/>
+          <property name="falseFormat" value="N"/>
+          <property name="includeCollectionKey" value="false"/>
+          <property name="tableName" value="CLS_METRICS_EVENT"/>
+    </bean>    
+          
+    <bean id="JdbcLifecycleFormatter" class="com.softwareag.pg.pgmen.events.jdbc.JdbcLifecycleFormatter"
+          init-method="init" destroy-method="destroy">    
+          <!-- one character limit for boolean formatted values -->
+          <property name="trueFormat" value="Y"/>
+          <property name="falseFormat" value="N"/>
+          <property name="tableName" value="CLS_LC_EVENT"/>
+    </bean>    
+
+    <bean id="JdbcMonitorFormatter" class="com.softwareag.pg.pgmen.events.jdbc.JdbcMonitorFormatter"
+          init-method="init" destroy-method="destroy">    
+          <!-- one character limit for boolean formatted values -->
+          <property name="trueFormat" value="Y"/>
+          <property name="falseFormat" value="N"/>
+          <property name="includeCollectionKey" value="false"/>
+          <property name="tableName" value="CLS_MON_EVENT"/>
+    </bean>    
+
+    <bean id="JdbcErrorFormatter" class="com.softwareag.pg.pgmen.events.jdbc.JdbcErrorFormatter"
+          init-method="init" destroy-method="destroy">    
+          <!-- one character limit for boolean formatted values -->
+          <property name="trueFormat" value="Y"/>
+          <property name="falseFormat" value="N"/>
+          <property name="tableName" value="CLS_ERR_EVENT"/>
+    </bean>    
+
+    <bean id="JdbcPVFormatter" class="com.softwareag.pg.pgmen.events.jdbc.JdbcPVFormatter"
+          init-method="init" destroy-method="destroy">    
+          <!-- one character limit for boolean formatted values -->
+          <property name="trueFormat" value="Y"/>
+          <property name="falseFormat" value="N"/>
+          <property name="tableName" value="CLS_PV_EVENT"/>
+    </bean>    
+
+    <!-- This pool is responsible for sending any queued events  during periods of inactvity -->
+    <bean id="JdbcEventSenderPool" class="com.softwareag.pg.pgmen.readers.DCIntervalPool"
+          init-method="init" destroy-method="destroy">
+        <property name="minThreads" value="1"/>
+        <property name="maxThreads" value="1"/>
+        <property name="forcefulShutdown" value="true"/>
+        <property name="poolName" value="JdbcEventSenderPool"/>
+
+    </bean>
+          
+</beans>

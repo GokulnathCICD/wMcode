@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema 
+	targetNamespace="http://www.softwareag.com/cloudstreams/metadata/handler/model"
+	xmlns="http://www.softwareag.com/cloudstreams/metadata/handler/model" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:cs="http://www.softwareag.com/cloudstreams/metadata/handler/model" 
+	elementFormDefault="qualified">
+	
+	<xsd:include schemaLocation="CoreModel.xsd" />
+
+	<xsd:complexType name="SOAPSignature">
+		<xsd:sequence>
+			<xsd:element name="headers" type="xsd:string" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+			<xsd:element name="body" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>
+			<xsd:element name="faults" type="xsd:string" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="SOAPServiceType">
+		<xsd:complexContent>
+			<xsd:extension base="cs:ServiceType">
+				<xsd:attribute name="wsdlLocation" type="xsd:string" use="required"/>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="SOAPOperationsType">
+		<xsd:complexContent>
+			<xsd:extension base="cs:InteractionsType" />
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="SOAPOperationType">
+		<xsd:complexContent>
+			<xsd:extension base="cs:InteractionType">
+				<xsd:sequence>
+					<xsd:element name="inputSignature" type="SOAPSignature" maxOccurs="1" minOccurs="0"/>
+					<xsd:element name="outputSignature" type="SOAPSignature" maxOccurs="1" minOccurs="0"/>
+				</xsd:sequence>
+				<xsd:attribute name="soapAction" type="xsd:string" use="optional" />
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="WSDL11ConnectorType">
+		<xsd:complexContent>
+			<xsd:extension base="cs:CSObjectType">
+				<xsd:sequence>
+					<xsd:element ref="cs:properties" maxOccurs="1" minOccurs="0"/>
+                    <xsd:element ref="cs:handler" maxOccurs="1" minOccurs="0"/>
+					<xsd:element ref="cs:connections" maxOccurs="1" minOccurs="1" />
+					<xsd:element ref="cs:services" maxOccurs="1" minOccurs="1" />
+					<xsd:element ref="cs:listeners" maxOccurs="1" minOccurs="0" />
+				</xsd:sequence>
+				<xsd:attribute name="id" type="xsd:string" use="required" />
+                <xsd:attribute name="version" type="xsd:string"></xsd:attribute>
+                <xsd:attribute name="group" type="xsd:string" use="optional" />
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:element name="soap-connector" type="WSDL11ConnectorType" />
+
+	<xsd:element name="operation" type="cs:SOAPOperationType" substitutionGroup="cs:interaction" />
+	<xsd:element name="operations" type="cs:SOAPOperationsType" substitutionGroup="cs:interactions" />
+
+</xsd:schema>

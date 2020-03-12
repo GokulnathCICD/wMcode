@@ -1,0 +1,51 @@
+.div.heading {
+    ;padding: 1px 0 1px 10px;
+	background-color: #006699;
+    color: #FFFFFF;
+    padding: 1em;
+    text-align: left;
+    border-bottom: 1px solid #474747;
+    font-size: 10pt;
+    height: inherit
+}
+
+div.ports {
+    text-align: center;
+    float: left;
+}
+
+div.ports.right {
+    margin-left: 10px;
+}
+
+div.ports label {
+    display: block;
+    padding: 5px;
+    background-color: #DCDCDC;
+}
+
+div.ports select {
+    ;;width: 200px;
+    height: 100px;
+}
+
+a.ports {
+    display: block;
+    text-decoration: none;
+}
+
+div#httpPortsConfig, div#httpsPortsConfig {
+    float: left;
+    clear: both;
+}
+
+.primary {
+    font-weight: bold;
+    background-color: #e6e6fa;
+    color: gray;
+}
+
+div#wirelogdiv {
+    clear: both;
+    margin-top: 5px;
+}

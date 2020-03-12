@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-init-method="init"
+       default-destroy-method="shutdown">
+
+
+    <bean class="com.softwareag.cloudstreams.axis2.CloudStreamsFormatterBuilderProvider"
+          name="formatterBuilderProvider"/>
+
+    <bean class="com.softwareag.cloudstreams.streaming.impl.client.DefaultExecutorServiceProvider"
+          name="executorServiceProvider" />
+
+    <!-- A 'DelayedRefresher' implementation; initially an IS-specific one. -->
+    <!-- Depends on policygateway because it needs to load web services.    -->
+    <!-- 'napMillis' prop specifies length of a nap between checks to see   -->
+    <!--    if IS has completed its start-up regimen.                       -->
+    <bean id="delayedRefresher"
+          class="com.softwareag.pg.init.ISDelayedRefresher"
+          init-method="refresh"
+          depends-on="pgEndpointFactory,policygateway, proxyLoader">
+
+        <property name="napMillis" value="${pg.delayedRefresher.napMillis}"/>
+    </bean>
+
+    <bean id="policygateway" class="com.softwareag.pg.PolicyGateway" factory-method="getInstance" init-method="init"
+          depends-on="consumerManager, vsdTransformer, IntervalManager">
+        <!--We need another bean to supply the ConfigurationContext for the Axis2 installation-->
+        <property name="configurationContextSupplier" ref="configurationcontextsupplier"/>
+        <!-- The PGConfiguration bean has references to the deployment handlers and other configuration-->
+        <property name="pgConfiguration" ref="pgconfiguration"/>
+        <property name="targetName" value="${pg.policygateway.targetName}"/>        
+        <property name="tenantId" value="${wst.default.tenant.id}"/>
+        <property name="deleteTempArtifacts" value="${pg.policygateway.deploy.receiver.deleteTempArtifacts}"/>
+        <!-- This is the location(relative to root of PG) of the modules/service directory. These are the modules/services that PG dynamically injects into the Axis Configuration-->
+        <property name="repositoryLocation" value="${pg.policygateway.repositoryLocation}"/>
+        <property name="productName" value="${wst.product.name}"/>
+    </bean>
+
+    <bean id="configurationcontextsupplier" class="com.softwareag.pg.config.ISConfigurationContextSupplier"/>
+	<bean id="rgHandler" class="com.softwareag.pg.config.ISRGHandler"/>
+
+
+    <bean id="pgconfiguration" class="com.softwareag.cloudstreams.config.CloudStreamsConfiguration" depends-on="pgServiceFactory">
+        <property name="configContextSupplier" ref="configurationcontextsupplier"/>
+        <property name="persistenceManager" ref="servicePersistenceManager"/>
+        <property name="serviceFactory" ref="pgServiceFactory"/>
+        <property name="creationHandlers">
+            <list>
+                <ref bean="rampartcreationhandler"/>
+                <ref bean="httpheaderscreationhandler"/>
+                <ref bean="pgmenpolicycreationhandler"/>
+            </list>
+        </property>
+        <property name="deploymentHandlers">
+            <list>
+                <ref bean="rampartcreationhandler"/>
+                <ref bean="pgmenpolicyactiondeploymenthandler"/>
+                <ref bean="contextvardeploymenthandler"/>
+            </list>
+        </property>
+        <property name="backupFailedServices" value="${pg.backupFailedProxies}"/>
+        <property name="failedServicesDirPath" value="${pg.failedProxies.backupDir}"/>
+        <property name="schemaValidationPoolSize" value="10"/>
+        <property name="transformerPoolSize" value="5"/>
+    </bean>
+    <!-- The PGConfiguration class also implements the IPGServiceDeployer interface
+     and is used by the PGServiceFactory class -->
+    <alias name="pgconfiguration" alias="pgservicedeployer"/>
+
+    <bean id="serviceReader" class="com.softwareag.pg.config.tasks.PGServiceReader"
+          depends-on="IntervalManager, proxyLoader">
+        <property name="interval" value="${pg.serviceReader.interval}"/>
+        <!-- 15 secs -->
+    </bean>
+
+    <bean id="proxyLoader" class="com.softwareag.pg.config.ProxyLoader"
+          depends-on="pgServiceFactory, pgconfiguration">
+        <property name="proxyLocation" value="${pg.proxyLoader.proxyLocation}"/>
+        <property name="serviceFactory" ref="pgServiceFactory"/>
+        <property name="config" ref="pgconfiguration"/>
+    </bean>
+
+    <bean id="vsdTransformer" class="com.softwareag.pg.config.VSTransformer">
+        <property name="xslFilePath" value="${pg.vsdTransformer.xslFilePath}"/>
+    </bean>
+
+    <bean id="filePropertiesManager" class="com.softwareag.pg.ui.FilePropertiesManager"
+          depends-on="EmailSender">
+        <property name="observers">
+            <map>
+                <entry key="email-config-edit">
+                    <bean class="com.softwareag.pg.pgmen.events.smtp.PropertiesObserver"/>
+                </entry>
+                <entry key="general-config-edit">
+                    <!--  Cloudstreams has a different observer than mediator version  -->
+                    <bean class="com.softwareag.cloudstreams.ui.GeneralPageObserver"/>
+                </entry>
+                <entry key="db-config-edit">
+                    <bean class="com.softwareag.cloudstreams.ui.DatabasePageObserver"/>
+                </entry>
+                
+            </map>
+        </property>
+    </bean>
+
+
+    <!--Initialize the ConsumerManager to use the correct consumer store -->
+    <bean id="consumerManager" class="com.softwareag.pg.consumers.ConsumerManager" factory-method="getInstance">
+        <property name="keystoreMgr" ref="keystore"/>
+        <property name="store" ref="jaxbFileStore"/>
+    </bean>
+
+    <!-- By default, PG will use the file store configured below -->
+    <bean id="jaxbFileStore" class="com.softwareag.pg.consumers.JaxbFileStore">
+        <property name="consumerFileStore" value="${pg.jaxbFileStore.consumerFileStore}"/>
+    </bean>
+
+    <bean id="consumerFinder" class="com.softwareag.pg.consumers.ConsumerFinder"/>
+
+    <bean id="registeredNamesManager" class="com.softwareag.pg.consumers.RegisteredConsumerNamesManager"
+          factory-method="getInstance">
+        <property name="store" ref="jaxbNamesStore"/>
+    </bean>
+
+    <!-- By default, PG will use the file store configured below -->
+    <bean id="jaxbNamesStore" class="com.softwareag.pg.consumers.JaxbNamesStore">
+        <property name="namesFileStore" value="${pg.jaxbNamesStore.namesFileStore}"/>
+    </bean>
+
+    <bean name="portsUpdater" class="com.softwareag.pg.ui.PortsUpdater"/>
+    <bean name="lbUpdater" class="com.softwareag.pg.ui.LoadBalancerUpdater"/>
+
+    <bean id="downtimeDetector" class="com.softwareag.pg.config.downtime.DowntimeDetector">
+        <property name="patternFilePath" value="resources/downtime-patterns.txt"/>
+    </bean>
+
+    <bean id="policyviolationDetector" class="com.softwareag.pg.pgmen.axis2.PolicyViolationDetector">
+        <property name="patternFilePath" value="resources/policyviolation-patterns.txt"/>
+    </bean>
+
+    <bean id="pgEndpointFactory" class="com.softwareag.pg.config.endpoints.PGEndpointFactory" factory-method="get" >  	
+        <property name="factories">
+            <list>
+                <bean class="com.softwareag.pg.config.endpoints.loadbalance.LoadbalanceEndpointFactory"/>
+                <bean class="com.softwareag.pg.config.endpoints.address.AddressEndpointFactory"/>
+                <bean class="com.softwareag.cloudstreams.config.endpoints.CloudEndpointFactory"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="serverBean" class="com.softwareag.pg.init.ISServerBean" />
+
+    <bean id="cloudstreamsVSRuntime" class="com.softwareag.cloudstreams.vs.impl.VirtualServiceRuntime"/>
+  
+    <bean id="localTransportReceiverInitializer" class="com.softwareag.pg.axis2.LocalTransportReceiverInitializer">
+        <property name="cfgCtxSupplier" ref="configurationcontextsupplier"/>
+    </bean>
+
+
+	<!-- This class defines the logger so it can be used as an embedded component.   -->
+	<!-- The properties define the logger properties to be used                      -->
+    <bean id="connFactoryLogger" class="com.softwareag.cloudstreams.conn.api.ConnectionFactoryLogger" factory-method="getInstance" >
+        <!--  The mnemonic to appear in logger entries -->  
+     	<property name="productComponent" value="WST"/>
+     	<!--  Bundle name where message id's can be located  -->
+     	<property name="bundleName" value="com.softwareag.cloudstreams.conn.messages"/>  
+     	<!--  log wire messages?  -->
+     	<property name="wireLoggingEnabled" value="${wst.connfactory.wirelogEnabled}"/>     	
+    </bean>
+    <!-- This class serves up the supported connection factory implementations -->
+    <bean id="clientConnectionFactoryManager" class="com.softwareag.cloudstreams.conn.api.ConnectionManagerFactory"
+     			factory-method="getInstance" depends-on="connFactoryLogger" destroy-method="destroy">
+        <property name="connManagerImplMap">
+        <!--  the key attribute should match the value for the alias in the impl class  -->
+           <map>
+                <entry key="hc-httpClient" value="com.softwareag.cloudstreams.conn.impl.HCConnectionManager"/>
+				<entry key="jetty-httpClient-cometd-bayeuxClient" value="com.softwareag.cloudstreams.conn.impl.JettyCometdConnectionManager"/>
+                <entry key="jetty-httpClient" value="com.softwareag.cloudstreams.conn.impl.JettyConnectionManager"/>		
+           </map>
+       </property>
+   </bean>
+
+   
+
+    <!--  ********************* Deployment/Creation Handlers used by PGConfiguration ******************** -->
+
+    <bean id="serviceFaultConfig" class="com.softwareag.pg.config.PGServiceGlobalConfig"/>
+    <bean id="httpheaderscreationhandler" class="com.softwareag.pg.mediators.HTTPHeadersCreationHandler"/>
+    <bean id="pgmenpolicycreationhandler" class="com.softwareag.pg.mediators.factory.PgMenPolicyCreationHandler"/>
+    <bean id="pgmenpolicyactiondeploymenthandler" class="com.softwareag.pg.pgmen.PolicyActionDeploymentHandler"/>
+    <bean id="contextvardeploymenthandler" class="com.softwareag.pg.ctxvar.ContextVariableServiceDeploymentHandler"/>
+    <!--  ********************* END Deployment/Creation Handlers used by PGConfiguration ******************** -->
+    <bean id="jmstransportlistener" class="com.softwareag.pg.axis2.transports.PGJMSTransportListener"
+          depends-on="policygateway" destroy-method="stop"/>
+    <bean id="httpResponseCodeCallback" class="com.softwareag.pg.axis2.transports.ISHTTPResponseCodeCallback"/>
+
+</beans>

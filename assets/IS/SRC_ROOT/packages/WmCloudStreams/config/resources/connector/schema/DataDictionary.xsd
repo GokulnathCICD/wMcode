@@ -1,0 +1,155 @@
+<xsd:schema elementFormDefault="qualified"
+	targetNamespace="http://www.softwareag.com/cloudstreams/datadictionary/model"
+	xmlns="http://www.softwareag.com/cloudstreams/datadictionary/model"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:cs="http://www.softwareag.com/cloudstreams/datadictionary/model">
+
+	<!-- CloudStreams data dictionary for connectors, applies to business objects -->
+
+	<xsd:complexType name="Entity">
+		<xsd:annotation>
+			<xsd:documentation>Represents an entity or a business object.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="entityName" type="xsd:string"
+				minOccurs="1" maxOccurs="1" />
+			<xsd:element name="docType" type="xsd:string" minOccurs="1"
+				maxOccurs="1" />
+			<xsd:element name="supportedInteractions" type="cs:SupportedInteractions"
+				maxOccurs="1" minOccurs="0" />
+			<xsd:element name="fields" type="cs:Fields"
+				maxOccurs="1" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Supported fields for a given entity/object.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Datadictionary">
+		<xsd:annotation>
+			<xsd:documentation>CloudStreams data dictionary for connectors.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="entities" type="cs:Entities" maxOccurs="unbounded"
+				minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Entities">
+		<xsd:annotation>
+			<xsd:documentation>List of entities present in the dictionary.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="entity" type="cs:Entity" maxOccurs="unbounded"
+				minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="SupportedInteractions">
+		<xsd:annotation>
+			<xsd:documentation>Interactions supported by an entity, the element supportedInteraction 
+			represents details of a single supported operation for given entity.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<!-- Interactions include operations and resources methods -->
+			<xsd:element name="supportedInteraction" maxOccurs="unbounded"
+				minOccurs="0" >
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="xsd:string">
+							<xsd:attribute name="type">
+								<xsd:simpleType>
+									<xsd:restriction base="xsd:string">
+										<xsd:enumeration value="create" />
+										<xsd:enumeration value="update" />
+                                        <xsd:enumeration value="upsert" />
+										<xsd:enumeration value="query" />
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:attribute>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Fields">
+		<xsd:sequence>
+			<xsd:element name="field" type="cs:Field" maxOccurs="unbounded"
+				minOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Constraint">
+		<xsd:annotation>
+			<xsd:documentation>Constraints that can be applied to a field.
+			</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:attribute name="type">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="IDATA" />
+					<xsd:enumeration value="COOKIE" />
+					<xsd:enumeration value="XPATH" />
+					<xsd:enumeration value="HEADER" />
+					<xsd:enumeration value="LITERAL" />
+					<xsd:enumeration value="DOMAIN_BEAN_RESOURCE" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="Field">
+		<xsd:annotation>
+			<xsd:documentation>Field details qualifiers, these
+				properties will be used to qualify the default field level details.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="picklistValues" type="xsd:string"
+				maxOccurs="unbounded" minOccurs="0" />
+			<!-- constraints can be further defined based on needs -->
+			<xsd:element name="constraints" type="cs:Constraint"
+				maxOccurs="unbounded" minOccurs="0" />
+
+			<xsd:element name="field" type="cs:Field" maxOccurs="unbounded"
+				minOccurs="0" />
+		</xsd:sequence>
+
+		<xsd:attribute name="name" type="xsd:string" use="optional" />
+		<xsd:attribute name="isNillable" type="xsd:boolean" use="optional"
+			default="false" />
+		<xsd:attribute name="defaultedOnCreate" type="xsd:boolean"
+			use="optional" default="false" />
+		<xsd:attribute name="isUpdatable" type="xsd:boolean"
+			use="optional" default="false" />
+        <xsd:attribute name="isUpsertable" type="xsd:boolean"
+			use="optional" default="false" />
+		<xsd:attribute name="isCreateable" type="xsd:boolean"
+			use="optional" default="false" />
+        <xsd:attribute name="isQueryable" type="xsd:boolean"
+			use="optional" default="false" />
+		<xsd:attribute name="isCustom" type="xsd:boolean" use="optional"
+			default="false" />
+		<!-- Additional lookup may be required other than the standard lookup for 
+			these fields like externalId -->
+		<xsd:attribute name="requiresLookup" type="xsd:boolean"
+			use="optional" default="false" />
+		<xsd:attribute name="editablePicklist" type="xsd:boolean"
+			use="optional" default="false" />
+
+		<!-- An attribute reserved for futureUse based on specific needs of SaaS 
+			provider, disabled for now <xsd:attribute name="futureUse" type="xsd:boolean" 
+			use="optional" default="false" /> -->
+
+	</xsd:complexType>
+
+	<xsd:element name="datadictionary" type="cs:Datadictionary" />
+</xsd:schema>

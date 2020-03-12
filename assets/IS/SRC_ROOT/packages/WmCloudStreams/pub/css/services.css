@@ -1,0 +1,121 @@
+.ui-tabs .ui-tabs-panel {
+    padding: 0 5px; /*override value in jquery-ui css*/
+}
+
+.pkgHeader {
+    display: inline;
+    vertical-align: bottom;
+}
+
+.packageDetails {
+    padding: 3px;
+    width: 75%;
+    margin: 15px 0;
+    border-bottom: 1px dotted #cdd4ca;
+}
+
+.pkgName {
+    color: #555555;
+    font-size: 11pt;
+    font-weight: bold;
+}
+
+.virtualServices {
+    margin: 15px 0 10px 0;
+}
+
+.vsName, .serviceName {
+    font-size: 8pt;
+    font-weight: bold;
+    padding: 2px;
+    /*color: #4e514e;*/
+    vertical-align: bottom;
+}
+
+.pkgName, .vsName, .serviceName {
+    font-family: 'Roboto', Arial, Sans-serif;
+}
+
+table.connectorServicesAndKeys {
+    width: 80%;
+    margin-top: -0.5px;
+}
+
+table, td {
+    margin: 5px 0;
+    padding: 2px;
+    border: none;
+}
+
+td.left {
+    width: 50%;
+    padding-right: 5px;
+}
+
+td.right {
+    padding-left: 5px;
+}
+
+table thead tr {
+    color: #71776e;
+}
+
+.nokeys, .noVS {
+    color: #9b9670;
+    font-size: 8pt;
+}
+
+div.service {
+    padding: 5px 0;
+}
+
+.vsHeader {
+    display: inline;
+}
+
+.serviceDetails {
+    display: inline;
+    margin: 0 0 0 12px;
+}
+
+div.endpoint {
+    margin-top: 5px;
+    font-size: 8pt;
+    color: #555555;
+}
+
+.details {
+    color: #556b2f;
+}
+
+form a {
+    text-decoration: none;
+    outline: none;
+    font-size: 8pt;
+    font-family: 'Roboto', Arial, Sans-serif;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+span form {
+    display: inline;
+    margin: 0 5px;
+}
+
+ul, li {
+    margin-top: 1px;
+    padding-left: 2px;
+    list-style-position: inside;
+}
+
+
+.vsHeader img, .pkgHeader img {
+    vertical-align: top;
+}
+
+
+
+
+

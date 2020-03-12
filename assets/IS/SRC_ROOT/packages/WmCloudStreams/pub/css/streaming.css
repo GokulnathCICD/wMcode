@@ -1,0 +1,63 @@
+div#container ul {
+    width: 42%;
+}
+
+div.required-msg {
+    display: inline;
+    float: left;
+    margin: 12px 0 0 0;
+}
+
+div#container form {
+    clear: both;
+}
+
+td input {
+    margin-left: 0;
+}
+
+#providersTable, #subscribersTable {
+    width: 90%;
+}
+
+#providersTable td.left, #subscribersTable td.left {/*override default width of 1st col*/
+  width:10%
+}
+
+.disabledSubscriberLnk {
+    margin-left: 18%
+}
+
+#destinationConfig, #authnConfig {
+    margin-top: 5px;
+}
+
+.visibleConfig {
+    display:table;
+}
+.hiddenConfig {
+    display: none;
+}
+.service-hint {
+    color: gray;
+    font-size: 8pt;
+    margin-top: 5px;
+}
+
+#headerTemplate {
+    display: none;
+}
+
+.addHeaderImg, .removeHeaderImg {
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+#headersContainer input {
+    width: 150px;
+}
+
+#httpContentType {
+    width: 250px;
+}
+

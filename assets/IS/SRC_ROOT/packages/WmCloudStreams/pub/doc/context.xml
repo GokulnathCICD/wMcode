@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<help xmlns:xs="http://www.w3.org/2001/XMLSchema" product="cloudstreams">
+   <topic id="CloudStreams_GeneralScrn"
+          url="help/index.html#context/cloudstreams-is-onlinehelp/CloudStreams_GeneralScrn"
+          width="650"/>
+   <topic id="CloudStreams_EmailScrn"
+          url="help/index.html#context/cloudstreams-is-onlinehelp/CloudStreams_EmailScrn"
+          width="650"/>
+   <topic id="CloudStreams_DatabaseScrn"
+          url="help/index.html#context/cloudstreams-is-onlinehelp/CloudStreams_DatabaseScrn"
+          width="650"/>
+   <topic id="CloudStreams_VSScrn"
+          url="help/index.html#context/cloudstreams-is-onlinehelp/CloudStreams_VSScrn"
+          width="650"/>
+   <topic id="CloudStreams_STSScrn"
+          url="help/index.html#context/cloudstreams-is-onlinehelp/CloudStreams_STSScrn"
+          width="650"/>
+   <topic id="CloudStreams_FaultScrn"
+          url="help/index.html#context/cloudstreams-is-onlinehelp/CloudStreams_FaultScrn"
+          width="650"/>
+   <topic id="CloudStreams_ConsumersScrn"
+          url="help/index.html#context/cloudstreams-is-onlinehelp/CloudStreams_ConsumersScrn"
+          width="650"/>
+   <topic id="CloudStreams_OAuthScrn"
+          url="help/index.html#context/cloudstreams-is-onlinehelp/CloudStreams_OAuthScrn"
+          width="650"/>
+   <topic id="CloudStreams_ProvidersScrn"
+          url="help/index.html#context/cloudstreams-is-onlinehelp/CloudStreams_ProvidersScrn"
+          width="650"/>
+   <topic id="CloudStreams_StreamingProvidersScrn"
+          url="help/index.html#context/cloudstreams-is-onlinehelp/CloudStreams_StreamingProvidersScrn"
+          width="650"/>
+   <topic id="CloudStreams_StreamingSubscribersScrn"
+          url="help/index.html#context/cloudstreams-is-onlinehelp/CloudStreams_StreamingSubscribersScrn"
+          width="650"/>
+</help>

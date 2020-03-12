@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-init-method="init"
+       default-destroy-method="shutdown">
+
+
+    <bean id="LocalLogMonitorFormatter" class="com.softwareag.pg.pgmen.events.locallog.LocalLogMonitorFormatter"
+          init-method="init" destroy-method="destroy"/>
+
+    <bean id="LocalLogTransactionFormatter" class="com.softwareag.pg.pgmen.events.locallog.LocalLogTransactionFormatter"
+          init-method="init" destroy-method="destroy"/>
+
+    <bean id="LocalLogSender" class="com.softwareag.pg.pgmen.events.locallog.LocalLogDestination"
+          init-method="init" destroy-method="destroy"/>
+
+    <bean id="LoggerDestination" class="com.softwareag.pg.pgmen.events.LoggerDestination"
+          init-method="init" destroy-method="destroy">
+        <property name="active" value="${pg.debug.eventLoggerActive}"/>
+        <!-- Value was /tmp/dest prior to cluster release -->
+        <property name="dirPath" value="/tmp/${pg.policygateway.targetName}"/>
+    </bean>
+
+
+</beans>

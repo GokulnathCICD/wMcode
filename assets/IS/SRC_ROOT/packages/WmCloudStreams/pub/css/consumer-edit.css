@@ -1,0 +1,55 @@
+table.tableView {
+	width: 60%;
+}
+
+#ipAddressContainer div, #tokensContainer div {
+    margin: 5px 0;
+}
+
+#tokensContainer div input {
+    width: 50%;
+}
+
+.addTokenImg, .removeTokenImg, .addRangeImg, .removeRangeImg {
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+#lnkUpload {
+    margin-left: 10px;
+}
+
+#currentCert {
+    font-size: 8pt;
+    color: #9B9670;
+}
+
+#currentCert span {
+    color: #4e514e;
+}
+
+#tokenDivTemplate, #ipRangeDivTemplate {
+    display: none;
+}
+
+div.required-msg {
+    display: inline;
+    margin-left: 48%;
+}
+
+.invalidCert, .badIP {
+    color: #bb0000;
+}
+
+#certFile {
+    width: 95%; /*override 'url' class value*/
+}
+
+.certOk {
+    margin-left: 2px;
+}
+
+.certNotOk, .badIP, .invalidCert {
+    vertical-align: middle;
+}
+

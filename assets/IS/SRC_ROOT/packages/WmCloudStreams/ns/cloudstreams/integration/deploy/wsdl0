@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns="http://deployment.cloudstreams.softwareag.com" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://deployment.cloudstreams.softwareag.com">
+
+    <jaxws:bindings xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:jaxws="http://java.sun.com/xml/ns/jaxws" wsdlLocation="http://localhost:8080/jaxws-external-customize/addnumbers?WSDL">
+        <!-- applies to wsdl:definitions node, that would mean the entire wsdl
+             Generate SEI in BARE style instead of Wrapper style, so parameters are not separated
+             and return type is generated instead of as INOUT param
+        -->
+        <jaxws:enableWrapperStyle>false</jaxws:enableWrapperStyle>
+    </jaxws:bindings>
+
+    <wsdl:import namespace="http://deployment.cloudstreams.softwareag.com" location="cloudstreams.integration.deploy?wsdl=wsdl1"/>
+
+    <wsdl:binding name="DeploymentBinding" type="DeploymentPortType">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+
+        <wsdl:operation name="ping">
+            <soap12:operation soapAction="urn:ping" soapActionRequired="true"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="getServices">
+            <soap12:operation soapAction="urn:getServices" soapActionRequired="true"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="InvalidRequestFault">
+                <soap12:fault name="InvalidRequestFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="ServerRuntimeFault">
+                <soap12:fault name="ServerRuntimeFault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+
+        <wsdl:operation name="deployService">
+            <soap12:operation soapAction="urn:deployService" soapActionRequired="true"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="InvalidRequestFault">
+                <soap12:fault name="InvalidRequestFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="ServerRuntimeFault">
+                <soap12:fault name="ServerRuntimeFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="DeployServiceFault">
+                <soap12:fault name="DeployServiceFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="PackageCreationFault">
+                <soap12:fault name="PackageCreationFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="PackageAlreadyExistsFault">
+                <soap12:fault name="PackageAlreadyExistsFault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+
+        <wsdl:operation name="deployServices">
+            <soap12:operation soapAction="urn:deployServices" soapActionRequired="true"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="InvalidRequestFault">
+                <soap12:fault name="InvalidRequestFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="ServerRuntimeFault">
+                <soap12:fault name="ServerRuntimeFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="PackageCreationFault">
+                <soap12:fault name="PackageCreationFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="PackageAlreadyExistsFault">
+                <soap12:fault name="PackageAlreadyExistsFault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+
+        <wsdl:operation name="undeployService">
+            <soap12:operation soapAction="urn:undeployService" soapActionRequired="true"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="InvalidRequestFault">
+                <soap12:fault name="InvalidRequestFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="ServerRuntimeFault">
+                <soap12:fault name="ServerRuntimeFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="UndeployServiceFault">
+                <soap12:fault name="UndeployServiceFault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+
+        <wsdl:operation name="undeployServices">
+            <soap12:operation soapAction="urn:undeployServices" soapActionRequired="true"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="InvalidRequestFault">
+                <soap12:fault name="InvalidRequestFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="ServerRuntimeFault">
+                <soap12:fault name="ServerRuntimeFault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+
+        <wsdl:operation name="deployProject">
+            <soap12:operation soapAction="urn:deployProject" soapActionRequired="true"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="InvalidRequestFault">
+                <soap12:fault name="InvalidRequestFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="ServerRuntimeFault">
+                <soap12:fault name="ServerRuntimeFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="PackageCreationFault">
+                <soap12:fault name="PackageCreationFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="PackageAlreadyExistsFault">
+                <soap12:fault name="PackageAlreadyExistsFault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+
+        <wsdl:operation name="deleteProject">
+            <soap12:operation soapAction="urn:deleteProject" soapActionRequired="true"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="InvalidRequestFault">
+                <soap12:fault name="InvalidRequestFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="ServerRuntimeFault">
+                <soap12:fault name="ServerRuntimeFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="PackageDeleteFault">
+                <soap12:fault name="PackageDeleteFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="PackageStopFault">
+                <soap12:fault name="PackageStopFault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+
+        <wsdl:operation name="attachPolicy">
+            <soap12:operation soapAction="urn:attachPolicy" soapActionRequired="true"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="InvalidRequestFault">
+                <soap12:fault name="InvalidRequestFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="ServerRuntimeFault">
+                <soap12:fault name="ServerRuntimeFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="PolicyAttachmentFault">
+                <soap12:fault name="PolicyAttachmentFault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+
+        <wsdl:operation name="detachPolicy">
+            <soap12:operation soapAction="urn:detachPolicy" soapActionRequired="true"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="InvalidRequestFault">
+                <soap12:fault name="InvalidRequestFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="ServerRuntimeFault">
+                <soap12:fault name="ServerRuntimeFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="PolicyDetachmentFault">
+                <soap12:fault name="PolicyDetachmentFault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        
+        <!-- Connector Deployment -->
+        <wsdl:operation name="deployConnectors">
+            <soap12:operation soapAction="urn:deployConnectors" soapActionRequired="true"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="InvalidRequestFault">
+                <soap12:fault name="InvalidRequestFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="ServerRuntimeFault">
+                <soap12:fault name="ServerRuntimeFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="PackageCreationFault">
+                <soap12:fault name="PackageCreationFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="PackageAlreadyExistsFault">
+                <soap12:fault name="PackageAlreadyExistsFault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+	
+	 <!-- Undeploy connectors operation -->
+	  <wsdl:operation name="undeployConnectors">
+            <soap12:operation soapAction="urn:undeployConnectors" soapActionRequired="true"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="InvalidRequestFault">
+                <soap12:fault name="InvalidRequestFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="ServerRuntimeFault">
+                <soap12:fault name="ServerRuntimeFault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        
+	<!-- Delete Provider package operation -->
+	   <wsdl:operation name="deleteProvider">
+            <soap12:operation soapAction="urn:deleteProvider" soapActionRequired="true"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="InvalidRequestFault">
+                <soap12:fault name="InvalidRequestFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="ServerRuntimeFault">
+                <soap12:fault name="ServerRuntimeFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="PackageDeleteFault">
+                <soap12:fault name="PackageDeleteFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="PackageStopFault">
+                <soap12:fault name="PackageStopFault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+	
+    </wsdl:binding>
+
+
+       <wsdl:service name="DeploymentService">
+        <wsdl:port name="DeploymentPort" binding="DeploymentBinding">
+            <soap12:address location="http://localhost:5555/ws/cloudstreams.integration.deploy/DeploymentPort"/>
+        </wsdl:port>
+    </wsdl:service>
+
+</wsdl:definitions>

@@ -1,0 +1,60 @@
+.consumer {
+    display: block;
+    width: 100%;
+}
+table.tableView {
+	width: 60%;
+}
+
+.label {
+    font-size: 9pt;
+    color: #666666;
+}
+
+.createdDate, .modDate {
+    width: 350px;
+}
+
+.sublabel {
+    color: #006666;
+}
+
+
+.name {
+    width: 40%;
+    font-weight: bold;
+}
+
+img {
+    padding: 0 2px;
+    vertical-align: text-bottom;
+}
+
+span.img {
+    vertical-align: text-bottom;
+}
+
+span.img:hover {
+    cursor: pointer;
+}
+
+.header {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #2f4f4f;
+}
+#links {
+    display: inline;
+    padding: 0;
+    margin-left: 81%;
+}
+
+.separator {
+    color: gray;
+    font-size: 8px;
+}
+
+.consumerName {
+    display: none;
+}
+

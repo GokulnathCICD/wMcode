@@ -1,0 +1,15 @@
+#Java regex patterns that matches possible network issues
+#These are interpreted as downtime problems
+
+#Specify each regex pattern in a separate line
+#Lines starting with '#' are treated as comments and blank lines are ignored
+
+.*ConnectException.*
+.*MalformedURLException.*
+.*NoRouteToHostException.*
+.*ProtocolException.*
+.*SocketTimeoutException.*
+.*UnknownHostException.*
+.*UnknownServiceException.*
+.*Web Service not available.*
+.*The service cannot be found.*

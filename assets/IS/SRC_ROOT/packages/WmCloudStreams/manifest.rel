@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Values version="2.0">
+  <value name="name">WmCloudStreams</value>
+  <value name="version">10.5.0.0.215</value>
+  <value name="build">215</value>
+  <value name="patch_nums"></value>
+  <value name="description"></value>
+  <value name="target_pkg_version">10.5.0.0.215</value>
+  <value name="jvm_version">1.8.0_222</value>
+  <value name="source_server_version">10.5.0.0</value>
+  <value name="target_server_version">10.5.0.0</value>
+  <value name="time">2020-03-12 14:52:46 IST</value>
+  <value name="type">full</value>
+  <null name="retainPatchHistory"/>
+  <value name="target_pkg_name">WmCloudStreams</value>
+  <value name="publisher">SAG-JPTFBH2.eur.ad.sag</value>
+  <array name="files_to_delete" type="value" depth="1">
+  </array>
+</Values>

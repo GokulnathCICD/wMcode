@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+       default-init-method="init"
+       default-destroy-method="shutdown">
+
+    <bean id="transportInitializer" class="com.softwareag.cloudstreams.axis2.transport.TransportInitializer">
+        <property name="configurationContextProvider" ref="configurationcontextsupplier"/>
+        <property name="receivers">
+            <util:map>
+                <entry  key-ref="cloudTransportName" value="com.softwareag.cloudstreams.axis2.transport.CloudStreamsTransportListener"/>
+            </util:map>
+        </property>
+        <property name="senders">
+            <util:map>
+                <entry key-ref="cloudTransportName" value="com.softwareag.cloudstreams.axis2.transport.CloudStreamsTransportSender"/>
+            </util:map>
+        </property>
+    </bean>
+    <util:constant static-field="com.softwareag.cloudstreams.Constants.DEFAULT_CLOUD_OUT_TRANSPORT_NAME" id="cloudTransportName"/>
+
+
+    <!--  This bean performs two functions. First, it creates additional axis2 builder/message formatter pairs -->
+    <!--  that are not statically defined in the Integration Server's axis.xml configuration file. Second, it  -->
+    <!--  defines a list of builder/formatters to include in the runtime API for each of the four phases where -->
+    <!--  a message can be transformed ( i.e. parsed or formatted ).                                           -->
+    <!--  See IVirtualService#getMessageHandlerContentTypes                                                    --> 
+      
+     
+    <bean id="messageHandlerManager" class="com.softwareag.cloudstreams.vs.impl.MessageHandlerManager" depends-on="transportInitializer">
+
+        <!--  any additional impls not registered in axis2.xml container   -->
+        <!-- if key is already registered, the old builder is overwritten  -->
+		<property name="builders">
+            <map>
+                <entry key="application/octet+idataoref" value="com.softwareag.cloudstreams.axis2.idata.IDataBuilder"/>                
+                <entry key="vnd.sag.cloudstreams+binary" value="org.apache.axis2.format.BinaryBuilder"/>
+                <entry key="vnd.sag.cloudstreams" value="com.softwareag.pg.axis2.stream.StreamBuilder"/>
+                <entry key="multipart/form-data" value="org.apache.axis2.builder.MultipartFormDataBuilder"/>
+            </map>
+		</property>
+
+        <!-- if key is already registered, the old formatter is overwritten  -->
+		<property name="formatters">
+			<map>
+                <entry key="application/octet+idataoref" value="com.softwareag.cloudstreams.axis2.idata.IDataMessageFormatter"/>              
+                <entry key="vnd.sag.cloudstreams+binary" value="org.apache.axis2.format.BinaryFormatter"/>
+                <entry key="vnd.sag.cloudstreams" value="com.softwareag.pg.axis2.stream.StreamMessageFormatter"/>
+                <entry key="multipart/form-data" value="com.softwareag.cloudstreams.vs.impl.CloudStreamsMultipartFormatter"/>
+           </map>
+		</property>
+		
+		
+        <property name="inboundRequestTypes">
+            <set>
+                <value>application/octet+idataoref</value>
+                <value>vnd.sag.cloudstreams+binary</value>
+                <!-- 
+                <value>vnd.sag.cloudstreams</value>
+                 -->
+            </set>
+        </property>
+
+        <property name="outboundRequestTypes">
+            <set>
+                <value>application/xml</value>
+                <value>application/x-www-form-urlencoded</value>
+                <value>application/json</value>
+                <value>vnd.sag.cloudstreams+binary</value>
+                <value>multipart/form-data</value>
+                <!-- 
+                <value>multipart/form-data</value>
+                <value>text/xml</value>
+                <value>application/soap+xml</value>
+                 -->
+            </set>
+        </property>
+  
+        <property name="inboundResponseTypes">
+            <set>
+                <value>application/xml</value>
+                <value>application/x-www-form-urlencoded</value>
+                <value>application/json</value>
+                <value>vnd.sag.cloudstreams+binary</value>
+                <value>multipart/form-data</value>
+                <!-- 
+                <value>multipart/form-data</value>
+                <value>text/xml</value>
+                <value>application/soap+xml</value>
+                 -->
+            </set>
+        </property>
+   
+        <property name="outboundResponseTypes">
+            <set>
+                <value>application/octet+idataoref</value>
+                <value>vnd.sag.cloudstreams+binary</value>
+                <!-- 
+                <value>vnd.sag.cloudstreams</value>
+                 -->
+            </set>
+        </property>
+	</bean>
+
+</beans>

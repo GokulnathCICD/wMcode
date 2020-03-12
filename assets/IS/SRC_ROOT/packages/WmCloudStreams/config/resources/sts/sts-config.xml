@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-init-method="init" default-destroy-method="shutdown">
+
+    <bean name="com.softwareag.pg.security.ws.saml.ISTSClient"
+          class="com.softwareag.pg.security.ws.saml.impl.DefaultSTSClient" scope="prototype">
+        <property name="policyRampartConfigurer" ref="policyRampartConfigurer"/>
+        <property name="policyBuilder" ref="policyBuilder"/>
+        <!--any modules to be engaged are expected be under config/repository/modules-->
+        <property name="modulesToEngage">
+            <map>
+                <entry key="cloudstreams" value="CloudStreamsModule.mar"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean name="com.softwareag.pg.security.ws.saml.ISTSClientConfigStore, configStore"
+          class="com.softwareag.pg.security.ws.saml.impl.DefaultSTSClientConfigStore">
+        <property name="configLoc" value="resources/security/sts"/>
+    </bean>
+
+    <bean name="com.softwareag.pg.security.ws.saml.ISTSClientConfigManager"
+          class="com.softwareag.pg.security.ws.saml.impl.DefaultSTSClientConfigManager">
+    <property name="configStore" ref="configStore"/>
+    </bean>
+
+    <bean name="com.softwareag.pg.security.ws.saml.impl.STSPolicyConfigurer, policyRampartConfigurer"
+          class="com.softwareag.pg.security.ws.saml.impl.STSPolicyRampartConfigurer">
+        <property name="passman" ref="passman"/>
+    </bean>
+
+    <bean name="com.softwareag.pg.security.ws.saml.impl.STSPolicyBuilder, policyBuilder"
+          class="com.softwareag.pg.security.ws.saml.impl.STSPolicyBuilder"/>
+
+</beans>

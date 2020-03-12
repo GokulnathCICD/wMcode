@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Values version="2.0">
+  <record name="record" javaclass="com.wm.util.Values">
+    <value name="node_type">record</value>
+    <value name="node_nsName">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_attachPolicy_Input</value>
+    <value name="node_pkg">WmCloudStreams</value>
+    <value name="is_public">false</value>
+    <value name="field_type">record</value>
+    <value name="field_dim">0</value>
+    <value name="nillable">true</value>
+    <value name="form_qualified">false</value>
+    <value name="is_global">false</value>
+    <value name="schemaDomain">25a169a537dad05814f1af0f7dc</value>
+    <value name="originURI">file://C:\CloudStreams_Trunk\designer-plugins\trunk\runtimeplugins\plugins\CloudStreamsDeployerStub\deploy.wsdl</value>
+    <array name="rec_fields" type="record" depth="1">
+      <record javaclass="com.wm.util.Values">
+        <value name="node_type">record</value>
+        <value name="is_public">false</value>
+        <value name="field_name">ns:addPolicy</value>
+        <value name="field_type">recref</value>
+        <value name="field_dim">0</value>
+        <value name="field_opt">true</value>
+        <value name="nillable">false</value>
+        <value name="field_xmlns">http://deployment.cloudstreams.softwareag.com</value>
+        <value name="form_qualified">false</value>
+        <value name="is_global">false</value>
+        <value name="rec_closed">true</value>
+        <value name="modifiable">true</value>
+        <value name="rec_ref">cloudstreams.integration.deploy_.docTypes:docTypeRef_ns_AddPolicyRequest</value>
+      </record>
+    </array>
+    <value name="modifiable">false</value>
+  </record>
+</Values>

@@ -1,0 +1,814 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Values version="2.0">
+  <value name="node_type">webServiceDescriptor</value>
+  <value name="node_nsName">cloudstreams.integration:deploy</value>
+  <value name="node_pkg">WmCloudStreams</value>
+  <value name="is_public">false</value>
+  <Boolean name="inbound">true</Boolean>
+  <Boolean name="WSICompliant">false</Boolean>
+  <value name="SOAPProtocol">SOAP 1.2 Protocol</value>
+  <value name="targetNamespace">http://deployment.cloudstreams.softwareag.com</value>
+  <Boolean name="attachmentEnabled">false</Boolean>
+  <number name="mtomThreshold" type="Integer">0</number>
+  <array name="externalWSDLSources" type="record" depth="1">
+    <record javaclass="com.wm.util.Values">
+      <value name="contextURI">http://localhost:5555/</value>
+      <value name="locationURI">cloudstreams.integration.deploy?wsdl=wsdl0</value>
+      <null name="source"/>
+      <number name="type" type="Integer">1</number>
+    </record>
+    <record javaclass="com.wm.util.Values">
+      <value name="contextURI">http://localhost:5555/</value>
+      <value name="locationURI">cloudstreams.integration.deploy?wsdl=wsdl1</value>
+      <null name="source"/>
+      <number name="type" type="Integer">2</number>
+    </record>
+    <record javaclass="com.wm.util.Values">
+      <value name="contextURI">http://localhost:5555/</value>
+      <value name="locationURI">cloudstreams.integration.deploy?xsd=xsd0</value>
+      <null name="source"/>
+      <number name="type" type="Integer">2</number>
+    </record>
+  </array>
+  <value name="externalWSDLURL">file:/D:/Work/cloudstreams/mediator/is/resources/packages/WmCloudStreams/config/resources/deployment/deploy.wsdl</value>
+  <value name="WSDLURL">http://mcveer02.eur.ad.sag:5555/ws/cloudstreams.integration:deploy?WSDL</value>
+  <value name="definitionName">deploy</value>
+  <value name="version">_9_0</value>
+  <value name="schemaDomain">b0880a3f0b7c65c713cf463ffe9</value>
+  <Boolean name="rawArray">true</Boolean>
+  <array name="handlerList" type="record" depth="1">
+  </array>
+  <array name="binderList" type="record" depth="1">
+    <record javaclass="com.wm.util.Values">
+      <value name="binderName">DeploymentBinding</value>
+      <value name="bindingName">DeploymentBinding</value>
+      <value name="bindingStyle">document</value>
+      <value name="bindingUse">literal</value>
+      <value name="bindingType">SOAP</value>
+      <value name="portName">DeploymentPort</value>
+      <value name="portTypeName">DeploymentPortType</value>
+      <value name="bindingTransport">http://schemas.xmlsoap.org/soap/http</value>
+      <value name="transportType">http</value>
+      <record name="operationMap" javaclass="com.wm.util.Values">
+        <value name="urn:getServices">getServices</value>
+        <value name="urn:deployServices">deployServices</value>
+        <value name="urn:deployProject">deployProject</value>
+        <value name="urn:attachPolicy">attachPolicy</value>
+        <value name="urn:deployConnectors">deployConnectors</value>
+        <value name="urn:undeployConnectors">undeployConnectors</value>
+        <value name="urn:detachPolicy">detachPolicy</value>
+        <value name="urn:undeployServices">undeployServices</value>
+        <value name="urn:deployService">deployService</value>
+        <value name="urn:undeployService">undeployService</value>
+        <value name="urn:deleteProject">deleteProject</value>
+        <value name="urn:ping">ping</value>
+        <value name="urn:deleteProvider">deleteProvider</value>
+      </record>
+      <value name="SOAPProtocol">SOAP 1.2 Protocol</value>
+      <value name="SOAPDirective">ws</value>
+      <Boolean name="useCSQ">false</Boolean>
+    </record>
+  </array>
+  <array name="operationList" type="record" depth="1">
+    <record javaclass="com.wm.util.Values">
+      <value name="operationName">ping</value>
+      <value name="serviceName">cloudstreams.integration.deploy_.services:ping</value>
+      <value name="originalMEPType">MEP_URI_IN_OUT</value>
+      <record name="requestElement" javaclass="com.wm.util.Values">
+        <array name="headers" type="record" depth="1">
+        </array>
+        <record name="body" javaclass="com.wm.util.Values">
+          <value name="name">http://deployment.cloudstreams.softwareag.com:DeploymentPortType_ping_Input</value>
+          <value name="docType">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_ping_Input</value>
+          <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_ping_Input</value>
+          <number name="nsOwnerType" type="Integer">3</number>
+          <Boolean name="addedByClient">false</Boolean>
+          <value name="action">http://deployment.cloudstreams.softwareag.com/DeploymentPortType/pingRequest</value>
+          <null name="originalDocName"/>
+        </record>
+        <array name="faults" type="record" depth="1">
+        </array>
+      </record>
+      <record name="responseElement" javaclass="com.wm.util.Values">
+        <array name="headers" type="record" depth="1">
+        </array>
+        <record name="body" javaclass="com.wm.util.Values">
+          <value name="name">http://deployment.cloudstreams.softwareag.com:DeploymentPortType_ping_Output</value>
+          <value name="docType">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_ping_Output</value>
+          <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_ping_Output</value>
+          <number name="nsOwnerType" type="Integer">3</number>
+          <Boolean name="addedByClient">false</Boolean>
+          <null name="originalDocName"/>
+        </record>
+        <array name="faults" type="record" depth="1">
+        </array>
+      </record>
+    </record>
+    <record javaclass="com.wm.util.Values">
+      <value name="operationName">getServices</value>
+      <value name="serviceName">cloudstreams.integration.deploy_.services:getServices</value>
+      <value name="originalMEPType">MEP_URI_IN_OUT</value>
+      <record name="requestElement" javaclass="com.wm.util.Values">
+        <array name="headers" type="record" depth="1">
+        </array>
+        <record name="body" javaclass="com.wm.util.Values">
+          <value name="name">http://deployment.cloudstreams.softwareag.com:DeploymentPortType_getServices_Input</value>
+          <value name="docType">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_getServices_Input</value>
+          <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_getServices_Input</value>
+          <number name="nsOwnerType" type="Integer">3</number>
+          <Boolean name="addedByClient">false</Boolean>
+          <value name="action">http://deployment.cloudstreams.softwareag.com/DeploymentPortType/getServicesRequest</value>
+          <null name="originalDocName"/>
+        </record>
+        <array name="faults" type="record" depth="1">
+        </array>
+      </record>
+      <record name="responseElement" javaclass="com.wm.util.Values">
+        <array name="headers" type="record" depth="1">
+        </array>
+        <record name="body" javaclass="com.wm.util.Values">
+          <value name="name">http://deployment.cloudstreams.softwareag.com:DeploymentPortType_getServices_Output</value>
+          <value name="docType">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_getServices_Output</value>
+          <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_getServices_Output</value>
+          <number name="nsOwnerType" type="Integer">3</number>
+          <Boolean name="addedByClient">false</Boolean>
+          <null name="originalDocName"/>
+        </record>
+        <array name="faults" type="record" depth="1">
+          <record javaclass="com.wm.util.Values">
+            <value name="name">ServerRuntimeFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:ServerRuntimeFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:ServerRuntimeFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+          <record javaclass="com.wm.util.Values">
+            <value name="name">InvalidRequestFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:InvalidRequestFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:InvalidRequestFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+        </array>
+      </record>
+    </record>
+    <record javaclass="com.wm.util.Values">
+      <value name="operationName">deployService</value>
+      <value name="serviceName">cloudstreams.integration.deploy_.services:deployService</value>
+      <value name="originalMEPType">MEP_URI_IN_OUT</value>
+      <record name="requestElement" javaclass="com.wm.util.Values">
+        <array name="headers" type="record" depth="1">
+        </array>
+        <record name="body" javaclass="com.wm.util.Values">
+          <value name="name">http://deployment.cloudstreams.softwareag.com:DeploymentPortType_deployService_Input</value>
+          <value name="docType">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_deployService_Input</value>
+          <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_deployService_Input</value>
+          <number name="nsOwnerType" type="Integer">3</number>
+          <Boolean name="addedByClient">false</Boolean>
+          <value name="action">http://deployment.cloudstreams.softwareag.com/DeploymentPortType/deployServiceRequest</value>
+          <null name="originalDocName"/>
+        </record>
+        <array name="faults" type="record" depth="1">
+        </array>
+      </record>
+      <record name="responseElement" javaclass="com.wm.util.Values">
+        <array name="headers" type="record" depth="1">
+        </array>
+        <record name="body" javaclass="com.wm.util.Values">
+          <value name="name">http://deployment.cloudstreams.softwareag.com:DeploymentPortType_deployService_Output</value>
+          <value name="docType">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_deployService_Output</value>
+          <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_deployService_Output</value>
+          <number name="nsOwnerType" type="Integer">3</number>
+          <Boolean name="addedByClient">false</Boolean>
+          <null name="originalDocName"/>
+        </record>
+        <array name="faults" type="record" depth="1">
+          <record javaclass="com.wm.util.Values">
+            <value name="name">PackageCreationFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:PackageCreationFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:PackageCreationFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+          <record javaclass="com.wm.util.Values">
+            <value name="name">PackageAlreadyExistsFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:PackageAlreadyExistsFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:PackageAlreadyExistsFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+          <record javaclass="com.wm.util.Values">
+            <value name="name">DeployServiceFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:DeployServiceFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:DeployServiceFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+          <record javaclass="com.wm.util.Values">
+            <value name="name">ServerRuntimeFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:ServerRuntimeFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:ServerRuntimeFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+          <record javaclass="com.wm.util.Values">
+            <value name="name">InvalidRequestFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:InvalidRequestFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:InvalidRequestFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+        </array>
+      </record>
+    </record>
+    <record javaclass="com.wm.util.Values">
+      <value name="operationName">deployServices</value>
+      <value name="serviceName">cloudstreams.integration.deploy_.services:deployServices</value>
+      <value name="originalMEPType">MEP_URI_IN_OUT</value>
+      <record name="requestElement" javaclass="com.wm.util.Values">
+        <array name="headers" type="record" depth="1">
+        </array>
+        <record name="body" javaclass="com.wm.util.Values">
+          <value name="name">http://deployment.cloudstreams.softwareag.com:DeploymentPortType_deployServices_Input</value>
+          <value name="docType">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_deployServices_Input</value>
+          <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_deployServices_Input</value>
+          <number name="nsOwnerType" type="Integer">3</number>
+          <Boolean name="addedByClient">false</Boolean>
+          <value name="action">http://deployment.cloudstreams.softwareag.com/DeploymentPortType/deployServicesRequest</value>
+          <null name="originalDocName"/>
+        </record>
+        <array name="faults" type="record" depth="1">
+        </array>
+      </record>
+      <record name="responseElement" javaclass="com.wm.util.Values">
+        <array name="headers" type="record" depth="1">
+        </array>
+        <record name="body" javaclass="com.wm.util.Values">
+          <value name="name">http://deployment.cloudstreams.softwareag.com:DeploymentPortType_deployServices_Output</value>
+          <value name="docType">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_deployServices_Output</value>
+          <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_deployServices_Output</value>
+          <number name="nsOwnerType" type="Integer">3</number>
+          <Boolean name="addedByClient">false</Boolean>
+          <null name="originalDocName"/>
+        </record>
+        <array name="faults" type="record" depth="1">
+          <record javaclass="com.wm.util.Values">
+            <value name="name">PackageCreationFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:PackageCreationFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:PackageCreationFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+          <record javaclass="com.wm.util.Values">
+            <value name="name">PackageAlreadyExistsFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:PackageAlreadyExistsFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:PackageAlreadyExistsFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+          <record javaclass="com.wm.util.Values">
+            <value name="name">ServerRuntimeFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:ServerRuntimeFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:ServerRuntimeFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+          <record javaclass="com.wm.util.Values">
+            <value name="name">InvalidRequestFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:InvalidRequestFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:InvalidRequestFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+        </array>
+      </record>
+    </record>
+    <record javaclass="com.wm.util.Values">
+      <value name="operationName">undeployService</value>
+      <value name="serviceName">cloudstreams.integration.deploy_.services:undeployService</value>
+      <value name="originalMEPType">MEP_URI_IN_OUT</value>
+      <record name="requestElement" javaclass="com.wm.util.Values">
+        <array name="headers" type="record" depth="1">
+        </array>
+        <record name="body" javaclass="com.wm.util.Values">
+          <value name="name">http://deployment.cloudstreams.softwareag.com:DeploymentPortType_undeployService_Input</value>
+          <value name="docType">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_undeployService_Input</value>
+          <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_undeployService_Input</value>
+          <number name="nsOwnerType" type="Integer">3</number>
+          <Boolean name="addedByClient">false</Boolean>
+          <value name="action">http://deployment.cloudstreams.softwareag.com/DeploymentPortType/undeployServiceRequest</value>
+          <null name="originalDocName"/>
+        </record>
+        <array name="faults" type="record" depth="1">
+        </array>
+      </record>
+      <record name="responseElement" javaclass="com.wm.util.Values">
+        <array name="headers" type="record" depth="1">
+        </array>
+        <record name="body" javaclass="com.wm.util.Values">
+          <value name="name">http://deployment.cloudstreams.softwareag.com:DeploymentPortType_undeployService_Output</value>
+          <value name="docType">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_undeployService_Output</value>
+          <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_undeployService_Output</value>
+          <number name="nsOwnerType" type="Integer">3</number>
+          <Boolean name="addedByClient">false</Boolean>
+          <null name="originalDocName"/>
+        </record>
+        <array name="faults" type="record" depth="1">
+          <record javaclass="com.wm.util.Values">
+            <value name="name">UndeployServiceFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:UndeployServiceFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:UndeployServiceFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+          <record javaclass="com.wm.util.Values">
+            <value name="name">ServerRuntimeFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:ServerRuntimeFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:ServerRuntimeFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+          <record javaclass="com.wm.util.Values">
+            <value name="name">InvalidRequestFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:InvalidRequestFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:InvalidRequestFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+        </array>
+      </record>
+    </record>
+    <record javaclass="com.wm.util.Values">
+      <value name="operationName">undeployServices</value>
+      <value name="serviceName">cloudstreams.integration.deploy_.services:undeployServices</value>
+      <value name="originalMEPType">MEP_URI_IN_OUT</value>
+      <record name="requestElement" javaclass="com.wm.util.Values">
+        <array name="headers" type="record" depth="1">
+        </array>
+        <record name="body" javaclass="com.wm.util.Values">
+          <value name="name">http://deployment.cloudstreams.softwareag.com:DeploymentPortType_undeployServices_Input</value>
+          <value name="docType">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_undeployServices_Input</value>
+          <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_undeployServices_Input</value>
+          <number name="nsOwnerType" type="Integer">3</number>
+          <Boolean name="addedByClient">false</Boolean>
+          <value name="action">http://deployment.cloudstreams.softwareag.com/DeploymentPortType/undeployServicesRequest</value>
+          <null name="originalDocName"/>
+        </record>
+        <array name="faults" type="record" depth="1">
+        </array>
+      </record>
+      <record name="responseElement" javaclass="com.wm.util.Values">
+        <array name="headers" type="record" depth="1">
+        </array>
+        <record name="body" javaclass="com.wm.util.Values">
+          <value name="name">http://deployment.cloudstreams.softwareag.com:DeploymentPortType_undeployServices_Output</value>
+          <value name="docType">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_undeployServices_Output</value>
+          <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_undeployServices_Output</value>
+          <number name="nsOwnerType" type="Integer">3</number>
+          <Boolean name="addedByClient">false</Boolean>
+          <null name="originalDocName"/>
+        </record>
+        <array name="faults" type="record" depth="1">
+          <record javaclass="com.wm.util.Values">
+            <value name="name">ServerRuntimeFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:ServerRuntimeFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:ServerRuntimeFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+          <record javaclass="com.wm.util.Values">
+            <value name="name">InvalidRequestFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:InvalidRequestFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:InvalidRequestFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+        </array>
+      </record>
+    </record>
+    <record javaclass="com.wm.util.Values">
+      <value name="operationName">deployProject</value>
+      <value name="serviceName">cloudstreams.integration.deploy_.services:deployProject</value>
+      <value name="originalMEPType">MEP_URI_IN_OUT</value>
+      <record name="requestElement" javaclass="com.wm.util.Values">
+        <array name="headers" type="record" depth="1">
+        </array>
+        <record name="body" javaclass="com.wm.util.Values">
+          <value name="name">http://deployment.cloudstreams.softwareag.com:DeploymentPortType_deployProject_Input</value>
+          <value name="docType">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_deployProject_Input</value>
+          <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_deployProject_Input</value>
+          <number name="nsOwnerType" type="Integer">3</number>
+          <Boolean name="addedByClient">false</Boolean>
+          <value name="action">http://deployment.cloudstreams.softwareag.com/DeploymentPortType/deployProjectRequest</value>
+          <null name="originalDocName"/>
+        </record>
+        <array name="faults" type="record" depth="1">
+        </array>
+      </record>
+      <record name="responseElement" javaclass="com.wm.util.Values">
+        <array name="headers" type="record" depth="1">
+        </array>
+        <record name="body" javaclass="com.wm.util.Values">
+          <value name="name">http://deployment.cloudstreams.softwareag.com:DeploymentPortType_deployProject_Output</value>
+          <value name="docType">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_deployProject_Output</value>
+          <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_deployProject_Output</value>
+          <number name="nsOwnerType" type="Integer">3</number>
+          <Boolean name="addedByClient">false</Boolean>
+          <null name="originalDocName"/>
+        </record>
+        <array name="faults" type="record" depth="1">
+          <record javaclass="com.wm.util.Values">
+            <value name="name">PackageCreationFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:PackageCreationFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:PackageCreationFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+          <record javaclass="com.wm.util.Values">
+            <value name="name">PackageAlreadyExistsFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:PackageAlreadyExistsFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:PackageAlreadyExistsFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+          <record javaclass="com.wm.util.Values">
+            <value name="name">ServerRuntimeFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:ServerRuntimeFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:ServerRuntimeFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+          <record javaclass="com.wm.util.Values">
+            <value name="name">InvalidRequestFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:InvalidRequestFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:InvalidRequestFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+        </array>
+      </record>
+    </record>
+    <record javaclass="com.wm.util.Values">
+      <value name="operationName">deleteProject</value>
+      <value name="serviceName">cloudstreams.integration.deploy_.services:deleteProject</value>
+      <value name="originalMEPType">MEP_URI_IN_OUT</value>
+      <record name="requestElement" javaclass="com.wm.util.Values">
+        <array name="headers" type="record" depth="1">
+        </array>
+        <record name="body" javaclass="com.wm.util.Values">
+          <value name="name">http://deployment.cloudstreams.softwareag.com:DeploymentPortType_deleteProject_Input</value>
+          <value name="docType">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_deleteProject_Input</value>
+          <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_deleteProject_Input</value>
+          <number name="nsOwnerType" type="Integer">3</number>
+          <Boolean name="addedByClient">false</Boolean>
+          <value name="action">http://deployment.cloudstreams.softwareag.com/DeploymentPortType/deleteProjectRequest</value>
+          <null name="originalDocName"/>
+        </record>
+        <array name="faults" type="record" depth="1">
+        </array>
+      </record>
+      <record name="responseElement" javaclass="com.wm.util.Values">
+        <array name="headers" type="record" depth="1">
+        </array>
+        <record name="body" javaclass="com.wm.util.Values">
+          <value name="name">http://deployment.cloudstreams.softwareag.com:DeploymentPortType_deleteProject_Output</value>
+          <value name="docType">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_deleteProject_Output</value>
+          <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_deleteProject_Output</value>
+          <number name="nsOwnerType" type="Integer">3</number>
+          <Boolean name="addedByClient">false</Boolean>
+          <null name="originalDocName"/>
+        </record>
+        <array name="faults" type="record" depth="1">
+          <record javaclass="com.wm.util.Values">
+            <value name="name">PackageStopFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:PackageStopFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:PackageStopFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+          <record javaclass="com.wm.util.Values">
+            <value name="name">PackageDeleteFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:PackageDeleteFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:PackageDeleteFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+          <record javaclass="com.wm.util.Values">
+            <value name="name">ServerRuntimeFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:ServerRuntimeFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:ServerRuntimeFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+          <record javaclass="com.wm.util.Values">
+            <value name="name">InvalidRequestFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:InvalidRequestFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:InvalidRequestFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+        </array>
+      </record>
+    </record>
+    <record javaclass="com.wm.util.Values">
+      <value name="operationName">attachPolicy</value>
+      <value name="serviceName">cloudstreams.integration.deploy_.services:attachPolicy</value>
+      <value name="originalMEPType">MEP_URI_IN_OUT</value>
+      <record name="requestElement" javaclass="com.wm.util.Values">
+        <array name="headers" type="record" depth="1">
+        </array>
+        <record name="body" javaclass="com.wm.util.Values">
+          <value name="name">http://deployment.cloudstreams.softwareag.com:DeploymentPortType_attachPolicy_Input</value>
+          <value name="docType">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_attachPolicy_Input</value>
+          <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_attachPolicy_Input</value>
+          <number name="nsOwnerType" type="Integer">3</number>
+          <Boolean name="addedByClient">false</Boolean>
+          <value name="action">http://deployment.cloudstreams.softwareag.com/DeploymentPortType/attachPolicyRequest</value>
+          <null name="originalDocName"/>
+        </record>
+        <array name="faults" type="record" depth="1">
+        </array>
+      </record>
+      <record name="responseElement" javaclass="com.wm.util.Values">
+        <array name="headers" type="record" depth="1">
+        </array>
+        <record name="body" javaclass="com.wm.util.Values">
+          <value name="name">http://deployment.cloudstreams.softwareag.com:DeploymentPortType_attachPolicy_Output</value>
+          <value name="docType">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_attachPolicy_Output</value>
+          <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_attachPolicy_Output</value>
+          <number name="nsOwnerType" type="Integer">3</number>
+          <Boolean name="addedByClient">false</Boolean>
+          <null name="originalDocName"/>
+        </record>
+        <array name="faults" type="record" depth="1">
+          <record javaclass="com.wm.util.Values">
+            <value name="name">PolicyAttachmentFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:PolicyAttachmentFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:PolicyAttachmentFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+          <record javaclass="com.wm.util.Values">
+            <value name="name">ServerRuntimeFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:ServerRuntimeFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:ServerRuntimeFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+          <record javaclass="com.wm.util.Values">
+            <value name="name">InvalidRequestFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:InvalidRequestFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:InvalidRequestFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+        </array>
+      </record>
+    </record>
+    <record javaclass="com.wm.util.Values">
+      <value name="operationName">detachPolicy</value>
+      <value name="serviceName">cloudstreams.integration.deploy_.services:detachPolicy</value>
+      <value name="originalMEPType">MEP_URI_IN_OUT</value>
+      <record name="requestElement" javaclass="com.wm.util.Values">
+        <array name="headers" type="record" depth="1">
+        </array>
+        <record name="body" javaclass="com.wm.util.Values">
+          <value name="name">http://deployment.cloudstreams.softwareag.com:DeploymentPortType_detachPolicy_Input</value>
+          <value name="docType">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_detachPolicy_Input</value>
+          <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_detachPolicy_Input</value>
+          <number name="nsOwnerType" type="Integer">3</number>
+          <Boolean name="addedByClient">false</Boolean>
+          <value name="action">http://deployment.cloudstreams.softwareag.com/DeploymentPortType/detachPolicyRequest</value>
+          <null name="originalDocName"/>
+        </record>
+        <array name="faults" type="record" depth="1">
+        </array>
+      </record>
+      <record name="responseElement" javaclass="com.wm.util.Values">
+        <array name="headers" type="record" depth="1">
+        </array>
+        <record name="body" javaclass="com.wm.util.Values">
+          <value name="name">http://deployment.cloudstreams.softwareag.com:DeploymentPortType_detachPolicy_Output</value>
+          <value name="docType">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_detachPolicy_Output</value>
+          <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_detachPolicy_Output</value>
+          <number name="nsOwnerType" type="Integer">3</number>
+          <Boolean name="addedByClient">false</Boolean>
+          <null name="originalDocName"/>
+        </record>
+        <array name="faults" type="record" depth="1">
+          <record javaclass="com.wm.util.Values">
+            <value name="name">PolicyDetachmentFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:PolicyDetachmentFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:PolicyDetachmentFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+          <record javaclass="com.wm.util.Values">
+            <value name="name">ServerRuntimeFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:ServerRuntimeFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:ServerRuntimeFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+          <record javaclass="com.wm.util.Values">
+            <value name="name">InvalidRequestFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:InvalidRequestFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:InvalidRequestFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+        </array>
+      </record>
+    </record>
+    <record javaclass="com.wm.util.Values">
+      <value name="operationName">deployConnectors</value>
+      <value name="serviceName">cloudstreams.integration.deploy_.services:deployConnectors</value>
+      <value name="originalMEPType">MEP_URI_IN_OUT</value>
+      <record name="requestElement" javaclass="com.wm.util.Values">
+        <array name="headers" type="record" depth="1">
+        </array>
+        <record name="body" javaclass="com.wm.util.Values">
+          <value name="name">http://deployment.cloudstreams.softwareag.com:DeploymentPortType_deployConnectors_Input</value>
+          <value name="docType">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_deployConnectors_Input</value>
+          <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_deployConnectors_Input</value>
+          <number name="nsOwnerType" type="Integer">3</number>
+          <Boolean name="addedByClient">false</Boolean>
+	      <value name="action">http://deployment.cloudstreams.softwareag.com/DeploymentPortType/deployConnectorsRequest</value>
+          <null name="originalDocName"/>
+        </record>
+        <array name="faults" type="record" depth="1">
+        </array>
+      </record>
+      <record name="responseElement" javaclass="com.wm.util.Values">
+        <array name="headers" type="record" depth="1">
+        </array>
+        <record name="body" javaclass="com.wm.util.Values">
+          <value name="name">http://deployment.cloudstreams.softwareag.com:DeploymentPortType_deployConnectors_Output</value>
+          <value name="docType">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_deployConnectors_Output</value>
+          <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_deployConnectors_Output</value>
+          <number name="nsOwnerType" type="Integer">3</number>
+          <Boolean name="addedByClient">false</Boolean>
+          <null name="originalDocName"/>
+        </record>
+        <array name="faults" type="record" depth="1">
+          <record javaclass="com.wm.util.Values">
+            <value name="name">PackageCreationFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:PackageCreationFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:PackageCreationFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+          <record javaclass="com.wm.util.Values">
+            <value name="name">PackageAlreadyExistsFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:PackageAlreadyExistsFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:PackageAlreadyExistsFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+          <record javaclass="com.wm.util.Values">
+            <value name="name">ServerRuntimeFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:ServerRuntimeFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:ServerRuntimeFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+          <record javaclass="com.wm.util.Values">
+            <value name="name">InvalidRequestFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:InvalidRequestFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:InvalidRequestFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+        </array>
+      </record>
+    </record>
+    <record javaclass="com.wm.util.Values">
+      <value name="operationName">undeployConnectors</value>
+      <value name="serviceName">cloudstreams.integration.deploy_.services:undeployConnectors</value>
+      <value name="originalMEPType">MEP_URI_IN_OUT</value>
+      <record name="requestElement" javaclass="com.wm.util.Values">
+        <array name="headers" type="record" depth="1">
+        </array>
+        <record name="body" javaclass="com.wm.util.Values">
+          <value name="name">http://deployment.cloudstreams.softwareag.com:DeploymentPortType_undeployConnectors_Input</value>
+          <value name="docType">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_undeployConnectors_Input</value>
+          <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_undeployConnectors_Input</value>
+          <number name="nsOwnerType" type="Integer">3</number>
+          <Boolean name="addedByClient">false</Boolean>
+		  <value name="action">http://deployment.cloudstreams.softwareag.com/DeploymentPortType/undeployConnectorsRequest</value>
+          <null name="originalDocName"/>
+        </record>
+        <array name="faults" type="record" depth="1">
+        </array>
+      </record>
+      <record name="responseElement" javaclass="com.wm.util.Values">
+        <array name="headers" type="record" depth="1">
+        </array>
+        <record name="body" javaclass="com.wm.util.Values">
+          <value name="name">http://deployment.cloudstreams.softwareag.com:DeploymentPortType_undeployConnectors_Output</value>
+          <value name="docType">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_undeployConnectors_Output</value>
+          <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_undeployConnectors_Output</value>
+          <number name="nsOwnerType" type="Integer">3</number>
+          <Boolean name="addedByClient">false</Boolean>
+          <null name="originalDocName"/>
+        </record>
+        <array name="faults" type="record" depth="1">
+          <record javaclass="com.wm.util.Values">
+            <value name="name">ServerRuntimeFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:ServerRuntimeFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:ServerRuntimeFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+          <record javaclass="com.wm.util.Values">
+            <value name="name">InvalidRequestFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:InvalidRequestFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:InvalidRequestFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+        </array>
+      </record>
+    </record>
+    <record javaclass="com.wm.util.Values">
+      <value name="operationName">deleteProvider</value>
+      <value name="serviceName">cloudstreams.integration.deploy_.services:deleteProvider</value>
+      <value name="originalMEPType">MEP_URI_IN_OUT</value>
+      <record name="requestElement" javaclass="com.wm.util.Values">
+        <array name="headers" type="record" depth="1">
+        </array>
+        <record name="body" javaclass="com.wm.util.Values">
+          <value name="name">http://deployment.cloudstreams.softwareag.com:DeploymentPortType_deleteProvider_Input</value>
+          <value name="docType">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_deleteProvider_Input</value>
+          <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_deleteProvider_Input</value>
+          <number name="nsOwnerType" type="Integer">3</number>
+          <Boolean name="addedByClient">false</Boolean>
+          <null name="originalDocName"/>
+        </record>
+        <array name="faults" type="record" depth="1">
+        </array>
+      </record>
+      <record name="responseElement" javaclass="com.wm.util.Values">
+        <array name="headers" type="record" depth="1">
+        </array>
+        <record name="body" javaclass="com.wm.util.Values">
+          <value name="name">http://deployment.cloudstreams.softwareag.com:DeploymentPortType_deleteProvider_Output</value>
+          <value name="docType">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_deleteProvider_Output</value>
+          <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:DeploymentPortType_deleteProvider_Output</value>
+          <number name="nsOwnerType" type="Integer">3</number>
+          <Boolean name="addedByClient">false</Boolean>
+		  <value name="action">http://deployment.cloudstreams.softwareag.com/DeploymentPortType/deleteProviderRequest</value>
+          <null name="originalDocName"/>
+        </record>
+        <array name="faults" type="record" depth="1">
+          <record javaclass="com.wm.util.Values">
+            <value name="name">PackageStopFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:PackageStopFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:PackageStopFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+          <record javaclass="com.wm.util.Values">
+            <value name="name">PackageDeleteFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:PackageDeleteFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:PackageDeleteFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+          <record javaclass="com.wm.util.Values">
+            <value name="name">ServerRuntimeFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:ServerRuntimeFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:ServerRuntimeFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+          <record javaclass="com.wm.util.Values">
+            <value name="name">InvalidRequestFault</value>
+            <value name="docType">cloudstreams.integration.deploy_.docTypes:InvalidRequestFault</value>
+            <value name="nsOwner">cloudstreams.integration.deploy_.docTypes:InvalidRequestFault</value>
+            <number name="nsOwnerType" type="Integer">3</number>
+            <Boolean name="addedByClient">false</Boolean>
+          </record>
+        </array>
+      </record>
+    </record>
+  </array>
+  <record name="namespaces" javaclass="com.wm.util.Values">
+    <value name="jaxws">http://java.sun.com/xml/ns/jaxws</value>
+    <value name="">http://deployment.cloudstreams.softwareag.com</value>
+    <value name="wsdl">http://schemas.xmlsoap.org/wsdl/</value>
+    <value name="http">http://schemas.xmlsoap.org/wsdl/http/</value>
+    <value name="soap12">http://schemas.xmlsoap.org/wsdl/soap12/</value>
+  </record>
+  <Boolean name="HeadersInPipelineEnabled">false</Boolean>
+  <Boolean name="validateSOAPResponse">true</Boolean>
+  <Boolean name="validateSchemaUsingXerces">true</Boolean>
+  <Boolean name="enableCompatibility">false</Boolean>
+  <Boolean name="registerDoctypes">true</Boolean>
+  <Boolean name="allTypes">false</Boolean>
+  <Boolean name="generateXOPObjectForBase64Binary">false</Boolean>
+  <value name="originURI">file://D:\Work\cloudstreams\mediator\is\resources\packages\WmCloudStreams\config\resources\deployment\deploy.wsdl</value>
+  <value name="modifiable">false</value>
+  <value name="externalServiceName">{http://deployment.cloudstreams.softwareag.com}DeploymentService</value>
+</Values>

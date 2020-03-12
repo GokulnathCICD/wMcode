@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+       default-init-method="init"
+       default-destroy-method="destroy">
+
+    <bean class="com.softwareag.cloudstreams.streaming.api.events.EventBus" name="eventBus"/>
+
+    <bean class="com.softwareag.cloudstreams.streaming.impl.client.cometd.CometdClientProvider" id="cometdProvider">
+        <property name="bus" ref="eventBus"/>
+    </bean>
+
+    <bean class="com.softwareag.cloudstreams.streaming.impl.client.http.jetty.JettyClientProvider"
+          id="jettyClientProvider">
+        <property name="bus" ref="eventBus"/>
+    </bean>
+
+    <bean class="com.softwareag.cloudstreams.streaming.api.ClientProviderFactory" name="providerFactory">
+        <property name="providers">
+            <util:set>
+                <ref bean="cometdProvider"/>
+                <ref bean="jettyClientProvider"/>
+            </util:set>
+        </property>
+    </bean>
+
+    <bean class="com.softwareag.cloudstreams.streaming.api.config.StreamingConfigManager" name="streamingConfigManager">
+        <property name="store">
+            <bean class="com.softwareag.cloudstreams.streaming.api.config.StreamingConfigFileStore"/>
+        </property>
+    </bean>
+
+    <bean class="com.softwareag.cloudstreams.streaming.impl.SubscriberManager" id="subscriberManager"
+          depends-on="streamingConfigManager, eventBus, executorServiceProvider">
+        <property name="configMgr" ref="streamingConfigManager"/>
+        <property name="executorServiceProvider" ref="executorServiceProvider"/>
+        <property name="bus" ref="eventBus"/>
+    </bean>
+
+    <bean class="com.softwareag.cloudstreams.streaming.impl.client.cometd.CometdChannelSubscriber" scope="prototype"
+          name="cometdChannelSubscriber" depends-on="retryAlgorithm">
+        <property name="clientProvider" ref="cometdProvider"/>
+        <property name="retryAlgorithm" ref="retryAlgorithm"/>
+    </bean>
+
+    <bean class="com.softwareag.cloudstreams.streaming.impl.client.http.jetty.HttpChannelSubscriber" scope="prototype"
+          name="httpChannelSubscriber" depends-on="retryAlgorithm">
+        <property name="clientProvider" ref="jettyClientProvider"/>
+        <property name="retryAlgorithm" ref="retryAlgorithm"/>
+    </bean>
+
+    <bean class="com.softwareag.cloudstreams.streaming.client.security.EsbCallbackAuthnProvider"
+          scope="prototype"
+          name="esbCallbackAuthnProvider"/>
+
+    <bean class="com.softwareag.cloudstreams.streaming.client.security.StreamingSSLConfigManager"
+          name="streamingSslConfigManager" scope="prototype"/>
+
+    <bean class="com.softwareag.cloudstreams.streaming.client.StreamingProxyConfigurer" name="proxyConfigurer"/>
+
+    <!--streaming client retry algorithm-->
+    <bean class="com.softwareag.cloudstreams.utils.retry.BoundedRetry" name="retryAlgorithm">
+        <property name="maxAttempts" value="3"/>
+    </bean>
+
+</beans>

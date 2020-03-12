@@ -1,0 +1,6 @@
+<serviceConfig>
+ <makefault version="soap11" sendNativeProviderFault="true">
+     <code xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" value="env:Server"/>
+     <reason value="CloudStreams encountered an error:$ERROR_MESSAGE while executing operation:$OPERATION service:$SERVICE at time:$TIME on date:$DATE. The client ip was:$CLIENT_IP. The current user:$USER. The consumer application:$CONSUMER_APPLICATION" />
+ </makefault>
+ </serviceConfig>

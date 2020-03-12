@@ -1,0 +1,26 @@
+table.tableView {
+	width: 60%;
+}
+
+td.info{
+	padding-left: 35pt;
+}
+
+div.required-msg {
+    display: inline;
+    margin-left: 48%;
+}
+
+.wideField {
+    width: 95%;
+}
+
+.service-hint {
+    color: gray;
+    font-size: 8pt;
+    margin-top: 5px;
+}
+
+.visible {
+    display:table;
+}

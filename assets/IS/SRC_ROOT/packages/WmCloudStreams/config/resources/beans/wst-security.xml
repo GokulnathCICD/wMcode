@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-init-method="init"
+       default-destroy-method="shutdown">
+
+    <bean id="passman" class="com.softwareag.pg.security.ISPassMan"/>
+
+    <bean id="keystore" class="com.softwareag.pg.security.ISPGKeystoreManager" init-method="init">
+        <!--the passman to use to get the keystore/truststore password-->
+        <property name="passman" ref="passman"/>
+
+        <!--alias for the keystore (already configured in the IS)-->
+        <property name="keyStoreHandle" value="${pg.keystore.keyStoreHandle}"/>
+
+        <!--alias for the truststore (already configured in the IS)-->
+        <property name="trustStoreHandle" value="${pg.keystore.trustStoreHandle}"/>
+
+    </bean>
+
+    <!-- This is the authorization manager that will be used for user/group authorization
+         By default, we use the ISAuthorizationManager since PG runs on IS -->
+    <bean id="authorizationManager" class="com.softwareag.pg.security.ISAuthorizationManager"/>
+
+    <bean id="authenticationManager" class="com.softwareag.pg.security.ISAuthenticationManager"/>
+
+    <bean id="rampartcreationhandler" class="com.softwareag.pg.axis2.rampart.RampartCreationHandler"
+          depends-on="keystore">
+        <property name="rampartConfiguration">
+            <value>
+                <![CDATA[
+            <ramp:RampartConfig xmlns:ramp="http://ws.apache.org/rampart/policy">
+                <!-- username of UsernameToken to be used  -->
+                <ramp:user>$(pg.RampartDeploymentConfigurator.usernameTokenUser)</ramp:user>
+                <!-- alias of the key to be used to sign -->
+                <ramp:userCertAlias>$(pg.RampartDeploymentConfigurator.signingCertAlias)</ramp:userCertAlias>
+                <ramp:passwordCallbackClass>com.softwareag.pg.security.ISPGPWCallback</ramp:passwordCallbackClass>
+                <ramp:policyValidatorCbClass>com.wm.app.b2b.server.wss.ISPolicyValidatorCallback</ramp:policyValidatorCbClass>
+                <ramp:encryptionUser>useReqSigCert</ramp:encryptionUser>
+                <ramp:signatureCrypto>
+                    <ramp:crypto provider="org.apache.ws.security.components.crypto.Merlin">
+                        <ramp:property name="org.apache.ws.security.crypto.merlin.keystore.type">$(pg.RampartDeploymentConfigurator.keystoreType)</ramp:property>
+                        <ramp:property name="org.apache.ws.security.crypto.merlin.file">$(pg.RampartDeploymentConfigurator.keystoreFile)</ramp:property>
+                        <ramp:property name="org.apache.ws.security.crypto.merlin.keystore.password">$(pg.RampartDeploymentConfigurator.keystorePassword)</ramp:property>
+                    </ramp:crypto>
+                </ramp:signatureCrypto>
+                <ramp:encryptionCrypto>
+                    <ramp:crypto provider="org.apache.ws.security.components.crypto.Merlin">
+                        <ramp:property name="org.apache.ws.security.crypto.merlin.keystore.type">$(pg.RampartDeploymentConfigurator.keystoreType)</ramp:property>
+                        <ramp:property name="org.apache.ws.security.crypto.merlin.file">$(pg.RampartDeploymentConfigurator.keystoreFile)</ramp:property>
+                        <ramp:property name="org.apache.ws.security.crypto.merlin.keystore.password">$(pg.RampartDeploymentConfigurator.keystorePassword)</ramp:property>
+                    </ramp:crypto>
+                </ramp:encryptionCrypto>
+            </ramp:RampartConfig>
+                ]]>
+                </value>
+        </property>
+        <property name="signingCertAlias" value="${pg.rampartdeploymenthandler.signingCertAlias}"/>
+        <property name="usernameTokenUser" value="${pg.rampartdeploymenthandler.usernameTokenUser}"/>
+    </bean>
+
+    <bean class="com.softwareag.cloudstreams.config.oauth.OauthAccessDetailsManager"
+          name="oauthDetailsManager" depends-on="passman"
+          init-method="init" destroy-method="shutdown">
+    </bean>
+
+    <!-- By default, WST will use the file store configured below -->
+    <bean id="oauthAccessDetailsStore" class="com.softwareag.cloudstreams.config.oauth.JaxbOauthDetailsStore"
+          init-method="init" destroy-method="shutdown"/>
+
+</beans>
