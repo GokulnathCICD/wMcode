@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<webMethodsTestSuite description="" name="PalindromTest.xml">
+    <webMethodsTestCase name="test1">
+        <service folder="Palindrom" name="palindromService">
+            <input>
+                <file filename="resources/test/xml/data/test1Input.xml"/>
+            </input>
+            <expected>
+                <file filename="resources/test/xml/data/test1Output.xml"/>
+            </expected>
+        </service>
+    </webMethodsTestCase>
+    <webMethodsTestCase name="test2">
+        <service folder="Palindrom" name="palindromService">
+            <input>
+                <file filename="resources/test/xml/data/test2Input.xml"/>
+            </input>
+            <expected>
+                <file filename="resources/test/xml/data/test2Output.xml"/>
+            </expected>
+        </service>
+    </webMethodsTestCase>
+</webMethodsTestSuite>

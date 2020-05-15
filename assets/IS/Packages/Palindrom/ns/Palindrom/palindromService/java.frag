@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Values version="2.0">
+  <value name="name">palindromService</value>
+  <value name="encodeutf8">true</value>
+  <value name="body">Ly8gcGlwZWxpbmUNCklEYXRhQ3Vyc29yIHBpcGVsaW5lQ3Vyc29yID0gcGlwZWxpbmUuZ2V0Q3Vy
+c29yKCk7DQoJU3RyaW5nCWluID0gSURhdGFVdGlsLmdldFN0cmluZyggcGlwZWxpbmVDdXJzb3Is
+ICJpbiIgKTsNCnBpcGVsaW5lQ3Vyc29yLmRlc3Ryb3koKTsNCg0KU3RyaW5nIHJldmVyc2U9IiI7
+DQogZm9yICggaW50IGkgPSBpbi5sZW5ndGgoKS0xOyBpID49IDA7IGktLSApIA0KIHsNCiAgICAg
+cmV2ZXJzZSA9IHJldmVyc2UgKyBpbi5jaGFyQXQoaSk7ICANCiB9DQoNCi8vIHBpcGVsaW5lDQpJ
+RGF0YUN1cnNvciBwaXBlbGluZUN1cnNvcl8xID0gcGlwZWxpbmUuZ2V0Q3Vyc29yKCk7DQppZihp
+bi5lcXVhbHNJZ25vcmVDYXNlKHJldmVyc2UpKQ0Kew0KCUlEYXRhVXRpbC5wdXQoIHBpcGVsaW5l
+Q3Vyc29yXzEsICJvdXQiLCAiYmluZ28gcGFsaW5kcm9tIiApOw0KfWVsc2UNCnsNCglJRGF0YVV0
+aWwucHV0KCBwaXBlbGluZUN1cnNvcl8xLCAib3V0IiwgIm9vcHMgbm90IHBhbGluZHJvbSIgKTsN
+Cn0NCg0KcGlwZWxpbmVDdXJzb3JfMS5kZXN0cm95KCk7DQoNCgk=</value>
+</Values>
