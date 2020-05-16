@@ -1033,6 +1033,9 @@
 
 <MAPDELETE FIELD="/count;1;0">
 </MAPDELETE>
+
+<MAPDELETE FIELD="/numList;1;1">
+</MAPDELETE>
 </MAP>
 </INVOKE>
 </FLOW>

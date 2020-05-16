@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <webMethodsTestSuite description="" name="FactorialTest.xml">
     <webMethodsTestCase name="test1">
-        <service folder="Factorial" name="factorialService">
+        <service folder="AIANZFactorial" name="factorialService">
             <input>
                 <file filename="resources/test/xml/data/test1Input.xml"/>
             </input>
@@ -11,7 +11,7 @@
         </service>
     </webMethodsTestCase>
     <webMethodsTestCase name="test2">
-        <service folder="Factorial" name="factorialService">
+        <service folder="AIANZFactorial" name="factorialService">
             <input>
                 <file filename="resources/test/xml/data/test2Input.xml"/>
             </input>

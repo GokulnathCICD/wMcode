@@ -9,16 +9,16 @@ import com.wm.app.b2b.server.ServiceException;
 // --- <<IS-START-IMPORTS>> ---
 // --- <<IS-END-IMPORTS>> ---
 
-public final class Palindrom
+public final class AIANZPalindrom
 
 {
 	// ---( internal utility methods )---
 
-	final static Palindrom _instance = new Palindrom();
+	final static AIANZPalindrom _instance = new AIANZPalindrom();
 
-	static Palindrom _newInstance() { return new Palindrom(); }
+	static AIANZPalindrom _newInstance() { return new AIANZPalindrom(); }
 
-	static Palindrom _cast(Object o) { return (Palindrom)o; }
+	static AIANZPalindrom _cast(Object o) { return (AIANZPalindrom)o; }
 
 	// ---( server methods )---
 
