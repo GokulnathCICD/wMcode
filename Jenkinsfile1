@@ -26,7 +26,8 @@ pipeline {
         stage('ISCCR'){
             steps {
 		
-                bat "C:/AIA/GCS_IS_ContinuousCodeReview_v6.1.0/CodeReview -Dcode.review.directory=C:/01_AIAMS/CICD/GitRepo/wMcode/assets/IS/Packages -Dcode.review.runmode=MULTI"
+                bat "cd C:\AIA\GCS_IS_ContinuousCodeReview_v6.1.0
+                    codereview.cmd -Dcode.review.directory=C:\01_AIAMS\CICD\GitRepo\wMcode\assets\IS\Packages -Dcode.review.runmode=MULTI"
             }
         }
     
