@@ -21,15 +21,31 @@
 pipeline {
     agent any 
 
-    stages {
-        
-        stage('ISCCR'){
+   stages {
+         stage('ISCCR'){
             steps {
 		
-                bat "C:/01_AIAMS/CICD/ISCCR/batchScript"
+                 bat "C:/01_AIAMS/CICD/ISCCR/batchScript"
             }
         }
-    
+   
+        stage('Build'){
+            steps {
+		
+                bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} -DpackageName=${params.Package} build"
+            }
         }
+        stage('Deploy') {
+            steps {
+		bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} -DpackageName=${params.Package} deploy"
+            }
+        } 
+ 	stage('Test') {
+            steps {
+		bat "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${env.JOB_NAME} -DpackageName=${params.Package} test"
+		junit 'report/'
+            }
+        }
+    }
     }
 
