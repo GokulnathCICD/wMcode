@@ -2,6 +2,7 @@
 
 <IDataXMLCoder version="1.0">
   <record javaclass="com.wm.data.ISMemDataImpl">
-    <value name="factorial">120</value>
+    <value name="num1">1</value>
+    <value name="num2">1</value>
   </record>
 </IDataXMLCoder>

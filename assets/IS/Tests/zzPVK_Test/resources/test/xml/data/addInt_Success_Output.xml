@@ -2,6 +2,6 @@
 
 <IDataXMLCoder version="1.0">
   <record javaclass="com.wm.data.ISMemDataImpl">
-    <value name="in">3</value>
+    <value name="value">2</value>
   </record>
 </IDataXMLCoder>

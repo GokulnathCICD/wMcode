@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<webMethodsTestSuite description="" name="wmTestSuite.xml">
+    <webMethodsTestCase name="Test ADD">
+        <service folder="zzPVK" name="testAdd">
+            <input>
+                <file filename="resources/test/xml/data/addInt_Success_Input.xml"/>
+            </input>
+            <expected>
+                <file filename="resources/test/xml/data/addInt_Success_Output.xml"/>
+            </expected>
+        </service>
+    </webMethodsTestCase>
+</webMethodsTestSuite>
